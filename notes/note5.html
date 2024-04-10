@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!-- saved from url=(0087)file:///C:/Users/ISE/Desktop/shindai%20programming%20language%20I%20homework%203-2.html -->
+<html lang="ja">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="../notestyle.css">
+    <link rel="stylesheet" href="../button.css">
+    <title>自然言語処理シリーズ 1 言語処理のための機械学習入門 ノート5</title>
+     <!--
+    <script type="text/javascript" src="./config.js" defer></script>
+    TeX: {
+                equationNumbers: { autoNumber: "AMS" },
+                Macros:{
+                    N: "{\\mathrm{N}}",
+                    dis: ["{\\displaystyle{#1}}",1],
+                    bm:["{\\boldsymbol{#1}}",1],
+                    dlim: ["{\\displaystyle{\\lim_{#1}}}",1],
+                    ep: "{\\varepsilon}",
+                    max: "{\\displaystyle{\mathrm{max}}}"
+                },
+                extensions: [
+                    "cancel.js",           // 抹消線を有効にする。
+                    "color.js"             // 文字の色付けを有効にする。
+                ]
+            },
+    -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            TeX: {
+                equationNumbers: { autoNumber: "AMS" },
+                Macros:{
+                    dis: ["{\\displaystyle{#1}}",1],
+                    bm:["{\\boldsymbol{#1}}",1],
+                    dlim: ["{\\displaystyle{\\lim_{#1}}}",1],
+                    Lim: ["{\\displaystyle{\\lim_{#1 \\to \\infty}}}",1],
+                    ep: "{\\varepsilon}",
+                    max: "{\\mathrm{max}}",
+                    N: "{\\mathbb{N}}",
+                    R: "{\\mathbb{R}}",
+                    min: "{\\mathrm{min}}",
+                    tx: "{\\tilde{x}}",
+                },
+            },
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\"] ],
+                processEscapes: true
+            }, 
+            "HTML-CSS": {
+                matchFontHeight: false,
+                undefinedFamily: "Meiryo, STIXGeneral, 'Arial Unicode MS', serif",
+                mtextInheritFont: true,
+                scale: 100
+            },
+            displayAlign: "left",
+            displayIndent: "4em"
+        });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+
+<body>
+
+
+    <div class="document" id="top">
+        <h1><span>自然言語処理シリーズ 1 言語処理のための機械学習入門 ノート5</span></h1>
+        <p style="text-align:right;">信州大学 工学部 電子情報システム工学科4年 鈴木一生(20T2079F)</p>
+        <h2>リンク集</h2>
+        <div class="th" id="link">
+            <span class="th-t" style="width:10em;">
+                <h5>ページ構成(リンク)</h5>
+            </span>
+            <ul>
+                <li><a href="#first">第5章 系列ラベリング</a></li>
+                <ul>
+                </ul>
+            </ul>
+        </div>
+
+
+        <h2>第5章 系列ラベリング</h2>
+        <h3>章末問題(p. 161)</h3>
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 1 】</h4>
+            </span>
+            <p>ラグランジュ乗数法を用いて式(5.2)
+                $$p_{x|y} = \frac{n((x,y), D)}{\dis{\sum_x} n((x,y), D)}, \qquad q_{y|y'} = \frac{n((y',y), D)}{\dis{\sum_y} n((y',y), D)} \qquad \qquad (5.2)$$
+                を求めよ。</p>
+        </div>
+
+        <div class="ans">
+            <span class="ans-t">
+                <h5>解答</h5>
+            </span>
+           
+        </div>
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 2 】</h4>
+            </span>
+            <p>5.2節で紹介したHMMの拡張を考える。同じように
+                $$D = \{(\bm{x}^{(1)}, \bm{y}^{(1)}), (\bm{x}^{(2)}, \bm{y}^{(2)}), \cdots , (\bm{x}^{(|D|)}, \bm{y}^{(|D|)})\}$$
+                が与えられたとしよう。$P(x_i, y_i|x_{i - 1}, y_{i - 1}) = P(x_i | y_i)P(y_i | y_{i - 1})$でなく，
+                $$P(x_i, y_i|x_{i - 1}, y_{i - 1}) = P(x_i | y_i, y_{i - 1}) P(y_i| y_{i - 1})$$
+                が成り立つと仮定したとき，最尤推定でパラメータを求めよ。ただし，パラメータあ$r_{x|y, y'} = P(x|y, y')$および$q_{y| y'} = P(y | y')$である。
+            </p>           
+        </div>
+
+        <div class="ans">
+            <span class="ans-t">
+                <h5>解答</h5>
+            </span>
+           
+        </div>
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 3 】</h4>
+            </span>
+            <p>例題5.1で与えられたデータを用い，CRFのための前向き後ろ向きアルゴリズムで用いる$\beta(y_t, t)$を求めよ。さらに，周辺確率$P(y_3, y_2|\bm{x})$を求めよ。</p>
+        </div>
+
+        <div class="ans">
+            <span class="ans-t">
+                <h5>解答</h5>
+            </span>
+           
+        </div>
+
+
+
+        <p style="text-align:right;"><a href="#top" class="btn-square-slant ">↑トップに戻る</a></p>
+        <div class="flex">
+            <p style="width:33%;"><a href="./note4.html " class="btn-square-slant ">←前のページに移る</a></p>
+            <p style="width:33%;"><a href="../index.html " class="btn-square-slant ">トップページに戻る</a></p>
+            <p style="width:33%;"><a href="./note6.html " class="btn-square-slant ">次のページに移る→</a></p>
+        </div>
+
+        <br>
+
+</body>
+
+</html>

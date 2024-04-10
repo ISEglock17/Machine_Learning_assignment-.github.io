@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<!-- saved from url=(0087)file:///C:/Users/ISE/Desktop/shindai%20programming%20language%20I%20homework%203-2.html -->
+<html lang="ja">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="../notestyle.css">
+    <link rel="stylesheet" href="../button.css">
+    <title>自然言語処理シリーズ 1 言語処理のための機械学習入門 ノート6</title>
+     <!--
+    <script type="text/javascript" src="./config.js" defer></script>
+    TeX: {
+                equationNumbers: { autoNumber: "AMS" },
+                Macros:{
+                    N: "{\\mathrm{N}}",
+                    dis: ["{\\displaystyle{#1}}",1],
+                    bm:["{\\boldsymbol{#1}}",1],
+                    dlim: ["{\\displaystyle{\\lim_{#1}}}",1],
+                    ep: "{\\varepsilon}",
+                    max: "{\\displaystyle{\mathrm{max}}}"
+                },
+                extensions: [
+                    "cancel.js",           // 抹消線を有効にする。
+                    "color.js"             // 文字の色付けを有効にする。
+                ]
+            },
+    -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            TeX: {
+                equationNumbers: { autoNumber: "AMS" },
+                Macros:{
+                    dis: ["{\\displaystyle{#1}}",1],
+                    bm:["{\\boldsymbol{#1}}",1],
+                    dlim: ["{\\displaystyle{\\lim_{#1}}}",1],
+                    Lim: ["{\\displaystyle{\\lim_{#1 \\to \\infty}}}",1],
+                    ep: "{\\varepsilon}",
+                    max: "{\\mathrm{max}}",
+                    N: "{\\mathbb{N}}",
+                    R: "{\\mathbb{R}}",
+                    min: "{\\mathrm{min}}",
+                    tx: "{\\tilde{x}}",
+                },
+            },
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\"] ],
+                processEscapes: true
+            }, 
+            "HTML-CSS": {
+                matchFontHeight: false,
+                undefinedFamily: "Meiryo, STIXGeneral, 'Arial Unicode MS', serif",
+                mtextInheritFont: true,
+                scale: 100
+            },
+            displayAlign: "left",
+            displayIndent: "4em"
+        });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+
+<body>
+
+
+    <div class="document" id="top">
+        <h1><span>自然言語処理シリーズ 1 言語処理のための機械学習入門 ノート6</span></h1>
+        <p style="text-align:right;">信州大学 工学部 電子情報システム工学科4年 鈴木一生(20T2079F)</p>
+        <h2>リンク集</h2>
+        <div class="th" id="link">
+            <span class="th-t" style="width:10em;">
+                <h5>ページ構成(リンク)</h5>
+            </span>
+            <ul>
+                <li><a href="#first">第6章 実験の仕方など</a></li>
+                <ul>
+                </ul>
+            </ul>
+        </div>
+
+
+        <h2>第6章 実験の仕方など</h2>
+        <h3>章末問題(p.178)</h3>
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 1 】</h4>
+            </span>
+            <p>ある分類問題において，手法Aを用いていろいろな再現率に対して精度を計算するとつぎのような表ができた(これは例題6.1の表と同じである):</p>
+            <div class="math">              
+            <table style="margin-left: 5em;">
+                <tbody>
+                    <tr>
+                        <th style="width: 5em;">
+                            再現率
+                        </th>
+                        <td>
+                            .00
+                        </td>
+                        <td>
+                            .10
+                        </td>
+                        <td>
+                            .20
+                        </td>
+                        <td>
+                            .30
+                        </td>
+                        <td>
+                            .40
+                        </td>
+                        <td>
+                            .50
+                        </td>
+                        <td>
+                            .60
+                        </td>
+                        <td>
+                            .70
+                        </td>
+                        <td>
+                            .80
+                        </td>
+                        <td>
+                            .90
+                        </td>
+                        <td>
+                            1.00
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            精度
+                        </th>
+                        <td>
+                            .92
+                        </td>
+                        <td>
+                            .90
+                        </td>
+                        <td>
+                            .88
+                        </td>
+                        <td>
+                            .85
+                        </td>
+                        <td>
+                            .77
+                        </td>
+                        <td>
+                            .65
+                        </td>
+                        <td>
+                            .55
+                        </td>
+                        <td>
+                            .30
+                        </td>
+                        <td>
+                            .20
+                        </td>
+                        <td>
+                            .10
+                        </td>
+                        <td>
+                            .05
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+
+            <p>また，手法Bを用いて同じ表を作ると，つぎのようになった:</p>
+            <div class="math">
+                <table style="margin-left: 5em;">
+                    <tbody>
+                        <tr>
+                            <th style="width: 5em;">
+                                再現率
+                            </th>
+                            <td>
+                                .00
+                            </td>
+                            <td>
+                                .10
+                            </td>
+                            <td>
+                                .20
+                            </td>
+                            <td>
+                                .30
+                            </td>
+                            <td>
+                                .40
+                            </td>
+                            <td>
+                                .50
+                            </td>
+                            <td>
+                                .60
+                            </td>
+                            <td>
+                                .70
+                            </td>
+                            <td>
+                                .80
+                            </td>
+                            <td>
+                                .90
+                            </td>
+                            <td>
+                                1.00
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                精度
+                            </th>
+                            <td>
+                                .90
+                            </td>
+                            <td>
+                                .88
+                            </td>
+                            <td>
+                                .85
+                            </td>
+                            <td>
+                                .82
+                            </td>
+                            <td>
+                                .75
+                            </td>
+                            <td>
+                                .60
+                            </td>
+                            <td>
+                                .50
+                            </td>
+                            <td>
+                                .40
+                            </td>
+                            <td>
+                                .30
+                            </td>
+                            <td>
+                                .20
+                            </td>
+                            <td>
+                                .10
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>それぞれの手法に対して11点平均精度を計算し，その値を比較せよ。</p>
+        </div>
+
+        <div class="ans">
+            <span class="ans-t">
+                <h5>解答</h5>
+            </span>
+           
+        </div>
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 2 】</h4>
+            </span>
+            <p>ある分類器の性能を調べたい。そのため，評価データとして，データセットAとデータセットBを用意した。両データセットとも，単一ラベルデータである。データセットAのクラス数は3でありデータセットBのクラス数は2である。さて，この分類器は，データセットAに対しては表6.6(a)のような分類結果となり，データセットBに対しては表(b)のような分類結果となった。</p>
+            <p>このとき，それぞれのデータセットに対する分類正解率を求めよ。また，二つのデータセットに対する分類正解率のマクロ平均とマイクロ平均を求めよ。</p>
+            <div class="math">        
+                <table style="margin-left: 5em;">
+                    <caption>表6.6 分割表の例(a)</caption>
+                    <thead>
+                        <tr>
+                            <th style="width: 7em;">
+                                
+                            </th>
+                            <th style="width: 7em;">
+                                $C_1$に属する
+                            </th>
+                            <th style="width: 7em;">
+                                $C_2$に属する
+                            </th>
+                            <th style="width: 7em;">
+                                $C_3$に属する
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>
+                                $C_1$と予測
+                            </th>
+                            <td>
+                                10
+                            </td>
+                            <td>
+                                6
+                            </td>
+                            <td>
+                                5
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                $C_2$と予測
+                            </th>
+                            <td>
+                                8
+                            </td>
+                            <td>
+                                15
+                            </td>
+                            <td>
+                                7
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                $C_3$と予測
+                            </th>
+                            <td>
+                                8
+                            </td>
+                            <td>
+                                9
+                            </td>
+                            <td>
+                                10
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br>
+                                
+                <table style="margin-left: 5em;">
+                    <caption>表6.6 分割表の例(b)</caption>
+                    <thead>
+                        <tr>
+                            <th style="width: 7em;">
+                                
+                            </th>
+                            <th style="width: 7em;">
+                                $C_1'$に属する
+                            </th>
+                            <th style="width: 7em;">
+                                $C_2'$に属する
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>
+                                $C_1'$と予測
+                            </th>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                0
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                $C_2'$と予測
+                            </th>
+                            <td>
+                                0
+                            </td>
+                            <td>
+                                2
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>            
+        </div>
+
+        <div class="ans">
+            <span class="ans-t">
+                <h5>解答</h5>
+            </span>
+           
+        </div>
+
+        <p style="text-align:right;"><a href="#top" class="btn-square-slant ">↑トップに戻る</a></p>
+        <div class="flex">
+            <p style="width:33%;"><a href="./note5.html " class="btn-square-slant ">前のページに移る</a></p>
+            <p style="width:33%;"><a href="../index.html " class="btn-square-slant ">トップページに戻る</a></p>
+            <p style="width:33%;"></p>
+        </div>
+
+        <br>
+
+</body>
+
+</html>

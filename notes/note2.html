@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<!-- saved from url=(0087)file:///C:/Users/ISE/Desktop/shindai%20programming%20language%20I%20homework%203-2.html -->
+<html lang="ja">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="../notestyle.css">
+    <link rel="stylesheet" href="../button.css">
+    <title>自然言語処理シリーズ 1 言語処理のための機械学習入門 ノート2</title>
+     <!--
+    <script type="text/javascript" src="./config.js" defer></script>
+    TeX: {
+                equationNumbers: { autoNumber: "AMS" },
+                Macros:{
+                    N: "{\\mathrm{N}}",
+                    dis: ["{\\displaystyle{#1}}",1],
+                    bm:["{\\boldsymbol{#1}}",1],
+                    dlim: ["{\\displaystyle{\\lim_{#1}}}",1],
+                    ep: "{\\varepsilon}",
+                    max: "{\\displaystyle{\mathrm{max}}}"
+                },
+                extensions: [
+                    "cancel.js",           // 抹消線を有効にする。
+                    "color.js"             // 文字の色付けを有効にする。
+                ]
+            },
+    -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            TeX: {
+                equationNumbers: { autoNumber: "AMS" },
+                Macros:{
+                    dis: ["{\\displaystyle{#1}}",1],
+                    bm:["{\\boldsymbol{#1}}",1],
+                    dlim: ["{\\displaystyle{\\lim_{#1}}}",1],
+                    Lim: ["{\\displaystyle{\\lim_{#1 \\to \\infty}}}",1],
+                    ep: "{\\varepsilon}",
+                    max: "{\\mathrm{max}}",
+                    N: "{\\mathbb{N}}",
+                    R: "{\\mathbb{R}}",
+                    min: "{\\mathrm{min}}",
+                    tx: "{\\tilde{x}}",
+                },
+            },
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\"] ],
+                processEscapes: true
+            }, 
+            "HTML-CSS": {
+                matchFontHeight: false,
+                undefinedFamily: "Meiryo, STIXGeneral, 'Arial Unicode MS', serif",
+                mtextInheritFont: true,
+                scale: 100
+            },
+            displayAlign: "left",
+            displayIndent: "4em"
+        });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+
+<body>
+
+
+    <div class="document" id="top">
+        <h1><span>自然言語処理シリーズ 1 言語処理のための機械学習入門 ノート2</span></h1>
+        <p style="text-align:right;">信州大学 工学部 電子情報システム工学科4年 鈴木一生(20T2079F)</p>
+        <h2>リンク集</h2>
+        <div class="th" id="link">
+            <span class="th-t" style="width:10em;">
+                <h5>ページ構成(リンク)</h5>
+            </span>
+            <ul>
+                <li><a href="#first">第2章 文書および単語の数学的表現</a></li>
+                <ul>
+                </ul>
+            </ul>
+        </div>
+
+
+        <h2>第2章 文書および単語の数学的表現</h2>
+        <h3>章末問題(p. 76)</h3>
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 1 】</h4>
+            </span>
+            <p>"tattarrattat"という単語を，文字ユニグラムを用いてベクトルで表現せよ。また同様に，文字バイグラム，文字トライグラムでもそれぞれベクトル化せよ。</p>
+        </div>
+
+        <div class="ans">
+            <span class="ans-t">
+                <h5>解答</h5>
+            </span>
+           
+        </div>
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 2 】</h4>
+            </span>
+            <p>例題2.6で用いた下記の文$s$に対し，見出し語化とストップワード削除を順に施してからbag-of-wordsでベクトル化せよ。ただし，ここでのストップワードは{a, the, on, in, of}であるとする。</p>
+            <p>　　　$s: $"A cat sat on the mat."</p>
+        </div>
+
+        <div class="ans">
+            <span class="ans-t">
+                <h5>解答</h5>
+            </span>
+           
+        </div>
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 3 】</h4>
+            </span>
+            <p>つぎの例文におけるsupercalifragilisticexpialidociousという単語トークンを，直前2トークン，直後2トークンの文脈ベクトルで表現せよ:</p>
+            <p>　　　"I had a <u>supercelifragilisticexpialidocious</u> time with friends."</p>
+            <p>ただし，文脈の単語は位置によって区別する。</p>
+        </div>
+
+        <div class="ans">
+            <span class="ans-t">
+                <h5>解答</h5>
+            </span>
+           
+        </div>
+
+
+
+        <p style="text-align:right;"><a href="#top" class="btn-square-slant ">↑トップに戻る</a></p>
+        <div class="flex">
+            <p style="width:33%;"><a href="./note1.html " class="btn-square-slant ">前のページに移る→</a></p>
+            <p style="width:33%;"><a href="../index.html " class="btn-square-slant ">トップページに戻る</a></p>
+            <p style="width:33%;"><a href="./note3.html " class="btn-square-slant ">次のページに移る→</a></p>
+        </div>
+
+        <br>
+
+</body>
+
+</html>

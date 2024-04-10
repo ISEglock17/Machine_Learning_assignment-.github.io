@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<!-- saved from url=(0087)file:///C:/Users/ISE/Desktop/shindai%20programming%20language%20I%20homework%203-2.html -->
+<html lang="ja">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="../notestyle.css">
+    <link rel="stylesheet" href="../button.css">
+    <title>自然言語処理シリーズ 1 言語処理のための機械学習入門 ノート3</title>
+     <!--
+    <script type="text/javascript" src="./config.js" defer></script>
+    TeX: {
+                equationNumbers: { autoNumber: "AMS" },
+                Macros:{
+                    N: "{\\mathrm{N}}",
+                    dis: ["{\\displaystyle{#1}}",1],
+                    bm:["{\\boldsymbol{#1}}",1],
+                    dlim: ["{\\displaystyle{\\lim_{#1}}}",1],
+                    ep: "{\\varepsilon}",
+                    max: "{\\displaystyle{\mathrm{max}}}"
+                },
+                extensions: [
+                    "cancel.js",           // 抹消線を有効にする。
+                    "color.js"             // 文字の色付けを有効にする。
+                ]
+            },
+    -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            TeX: {
+                equationNumbers: { autoNumber: "AMS" },
+                Macros:{
+                    dis: ["{\\displaystyle{#1}}",1],
+                    bm:["{\\boldsymbol{#1}}",1],
+                    dlim: ["{\\displaystyle{\\lim_{#1}}}",1],
+                    Lim: ["{\\displaystyle{\\lim_{#1 \\to \\infty}}}",1],
+                    ep: "{\\varepsilon}",
+                    max: "{\\mathrm{max}}",
+                    N: "{\\mathbb{N}}",
+                    R: "{\\mathbb{R}}",
+                    min: "{\\mathrm{min}}",
+                    tx: "{\\tilde{x}}",
+                },
+            },
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\"] ],
+                processEscapes: true
+            }, 
+            "HTML-CSS": {
+                matchFontHeight: false,
+                undefinedFamily: "Meiryo, STIXGeneral, 'Arial Unicode MS', serif",
+                mtextInheritFont: true,
+                scale: 100
+            },
+            displayAlign: "left",
+            displayIndent: "4em"
+        });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+
+<body>
+
+
+    <div class="document" id="top">
+        <h1><span>自然言語処理シリーズ 1 言語処理のための機械学習入門 ノート3</span></h1>
+        <p style="text-align:right;">信州大学 工学部 電子情報システム工学科4年 鈴木一生(20T2079F)</p>
+        <h2>リンク集</h2>
+        <div class="th" id="link">
+            <span class="th-t" style="width:10em;">
+                <h5>ページ構成(リンク)</h5>
+            </span>
+            <ul>
+                <li><a href="#first">第3章 クラスタリング</a></li>
+                <ul>
+                </ul>
+            </ul>
+        </div>
+
+
+        <h2>第3章 クラスタリング</h2>
+        <h3>章末問題(p. 97)</h3>
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 1 】</h4>
+            </span>
+            <p>例題3.1と同じ1次元のデータ$D$が与えられたとする: 
+                $$D = \{0, 1, 3, 5.5\}$$
+            </p>
+            <p>事例間の類似度は，差の逆数で測ることにする。このデータに対し，重心法による凝集型クラスタリングを実行せよ。もし，二つのクラスタ対について類似度が等しい場合は，融合後のクラスタが小さいものを優先して融合することにする。</p>
+        </div>
+
+        <div class="ans">
+            <span class="ans-t">
+                <h5>解答</h5>
+            </span>
+           
+        </div>
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 2 】</h4>
+            </span>
+           <p>例題3.2と同じ1次元のデータ$D$が与えられたとする:
+                $$D = \{0, 1, 3, 5.5\}$$
+           </p>
+           <p>$k = 2$として$k-$平均法を用いてクラスタリングを実行せよ。ただし，初期状態において，クラスタ$c_1$に対応する代表値(一般には代表ベクトル)は$m_1 = -1$，クラスタ$c_2$に対応する代表値は$m_2 = 7.5$とする。</p>
+        </div>
+
+        <div class="ans">
+            <span class="ans-t">
+                <h5>解答</h5>
+            </span>
+           
+        </div>
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 3 】</h4>
+            </span>
+            <p>3.5節で登場した混合正規分布について，この分布をEMアルゴリズムを用いて推定するときのMステップにおける更新式を求めよ(式(3.6))。$Q$関数は
+                $$Q(\theta; \theta') = \sum_{\bm{x}^(i) \in D} \sum_c \overline{P} (c| \bm{x}^(i); \theta') \log P(c) \frac{1}{\sqrt{(2\pi \sigma^2)^d}} \exp \left(- \frac{|\bm{x}^(i) - \bm{m}_c|^2}{2 \sigma^2} \right)$$
+                と表されているので，これを最大化する$\bm{m}_c$を求めればよい。
+            </p>
+        </div>
+
+        <div class="ans">
+            <span class="ans-t">
+                <h5>解答</h5>
+            </span>
+           
+        </div>
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 4 】</h4>
+            </span>
+            <p>文章$d$の生成確率が，$\dis{\sum_c P(c) P(d | c)}$という混合分布で表されているとする。各クラスタ$c$について多項分布$P(d|c)$を仮定する。ただし，この$d$は長さ$n$の文書であり，$m$個の単語集合から一つの単語を選ぶ試行を$n$回繰り返すことで生成されるとする。$n$個の単語トークンのうち$w$であるものの数を$n_{w, d}$でクラスタが$c$であるときに単語$w$を選ぶ確率を$\bm{q}_{w, c}$で表すと，
+                $$P(d|c) = \frac{n!}{\dis{\prod_w} n_{w, d}!} \prod_w q_{w, c}^{n_{w, d}}$$
+                となる。クラスタを選ぶ確率$P(c)$を$p_c$で表すとして，EMアルゴリズムにおけるEステップとMステップを求めよ。
+            </p>
+        </div>
+
+        <div class="ans">
+            <span class="ans-t">
+                <h5>解答</h5>
+            </span>
+           
+        </div>
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 5 】</h4>
+            </span>
+            <p>例題3.4と同じデータが与えられたとする:
+                $$D = \{(x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}, \cdots , (x^{(|D|)}, y^{(|D|)})) \}$$
+                ここでは，確率変数$X$と$Y$の同時確率が
+                $$\begin{align*} 
+                    P(X = x, Y = y) &= \sum_{c, d} P(x, y, c, d) \\
+                    &= \sum_{c, d} P(x|c) P(y | d) P(c, d)
+                \end{align*}$$
+                と表されるとしよう(例題3.4のモデルがアスペクトモデルとよばれるのに対し，このモデルは<em>プロダクトモデル</em>(product model)とよばれる)。このモデルは二つの隠れ変数を持つ。3種類のパラメータを$q_{x, c} = P(x | c), r_{y, d} = P(y | d), p_{c, d} = P(c, d)$とおく。EMアルゴリズムにおけるEステップおよびMステップの更新式を求めよ。
+            </p>
+        </div>
+
+        <div class="ans">
+            <span class="ans-t">
+                <h5>解答</h5>
+            </span>
+           
+        </div>
+
+
+        <p style="text-align:right;"><a href="#top" class="btn-square-slant ">↑トップに戻る</a></p>
+        <div class="flex">
+            <p style="width:33%;"><a href="./note2.html " class="btn-square-slant ">←前のページに移る</a></p>
+            <p style="width:33%;"><a href="../index.html " class="btn-square-slant ">トップページに戻る</a></p>
+            <p style="width:33%;"><a href="./note4.html " class="btn-square-slant ">次のページに移る→</a></p>
+        </div>
+
+        <br>
+
+</body>
+
+</html>
