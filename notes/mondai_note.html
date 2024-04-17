@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<!-- saved from url=(0087)file:///C:/Users/ISE/Desktop/shindai%20programming%20language%20I%20homework%203-2.html -->
+<html lang="ja">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="../notestyle.css">
+    <link rel="stylesheet" href="../button.css">
+    <title>自然言語処理シリーズ 1 言語処理のための機械学習入門 ノート</title>
+     <!--
+    <script type="text/javascript" src="./config.js" defer></script>
+    TeX: {
+                equationNumbers: { autoNumber: "AMS" },
+                Macros:{
+                    N: "{\\mathrm{N}}",
+                    dis: ["{\\displaystyle{#1}}",1],
+                    bm:["{\\boldsymbol{#1}}",1],
+                    dlim: ["{\\displaystyle{\\lim_{#1}}}",1],
+                    ep: "{\\varepsilon}",
+                    max: "{\\displaystyle{\mathrm{max}}}"
+                },
+                extensions: [
+                    "cancel.js",           // 抹消線を有効にする。
+                    "color.js"             // 文字の色付けを有効にする。
+                ]
+            },
+    -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            TeX: {
+                equationNumbers: { autoNumber: "AMS" },
+                Macros:{
+                    dis: ["{\\displaystyle{#1}}",1],
+                    bm:["{\\boldsymbol{#1}}",1],
+                    dlim: ["{\\displaystyle{\\lim_{#1}}}",1],
+                    Lim: ["{\\displaystyle{\\lim_{#1 \\to \\infty}}}",1],
+                    ep: "{\\varepsilon}",
+                    max: "{\\mathrm{max}}",
+                    N: "{\\mathbb{N}}",
+                    R: "{\\mathbb{R}}",
+                    min: "{\\mathrm{min}}",
+                    tx: "{\\tilde{x}}",
+                    pdv: ["\\frac{\\partial {#1}}{\\partial {#2}}", 2],
+                },
+            },
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\"] ],
+                processEscapes: true
+            }, 
+            "HTML-CSS": {
+                matchFontHeight: false,
+                undefinedFamily: "'Yu Mincho', '游明朝', 'serif'",
+                mtextInheritFont: true,
+                scale: 100
+            },
+            displayAlign: "left",
+            displayIndent: "4em"
+        });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+
+<div>
+
+
+    <div class="document" id="top">
+        <h1><span>自然言語処理シリーズ 1 言語処理のための機械学習入門 ノート1</span></h1>
+        <p style="text-align:right;">電気通信大学大学院 情報理工学研究科 情報学専攻 1年 鈴木一生(2430073)</p>
+        <h2>リンク集</h2>
+        <div class="th" id="link">
+            <span class="th-t" style="width:10em;">
+                <h5>ページ構成(リンク)</h5>
+            </span>
+            <ul>
+                <li><a href="#first">第1章 必要な数学的知識</a></li>
+                <ul>
+                    <li><a href="#syomatsu">章末問題</a></li>
+                </ul>
+            </ul>
+        </div>
+
+
+        <h2 id="first">第1章 必要な数学的知識</h2>
+        <h3 id="syomatsu">章末問題(p. 59)</h3>
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 1 】</h4>
+            </span>
+            <p>不等式を用いて表されるつぎのような集合
+                $$A = \{\bm{x} \in \R^d| \bm{v} \cdot \bm{x} \geqq b \} $$
+                は凸集合であることを示せ。
+            </p>
+        </div>
+
+            
+           
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 2 】</h4>
+            </span>
+            <p>二つの凸集合$A$と$B$に対し，$A \cap B$も凸集合になることを示せ。</p>
+        </div>
+
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 3 】</h4>
+            </span>
+            <p>二つの凸集合$A$と$B$に対し，$A \cup B$は凸とは限らないことを示せ。</p>
+        </div>
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 4 】</h4>
+            </span>
+            <p>任意の$x^{(1)}$と$x^{(2)}$について，$f(x^{(2)}) - f(x^{(1)}) \leqq \nabla f(x^{(1)}) (x^{(2)} - x^{(1)})$であるとき，関数$f$が上に凸であることを示せ。</p>
+        </div>
+
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 5 】</h4>
+            </span>
+            <p>つぎを示せ: </p>
+            <p>(1) 定数は上にも下にも凸である。</p>
+            <p>(2) $\log(x)$は$x \in \R^+$において，上に凸である。</p>
+            <p>(3) $\exp(x)$は下に凸である。</p>
+            <p>(4) $ax^2$は$a \leqq 0$なら上に，$a \geqq 0$なら下に凸である。</p>
+        </div>
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 6 】</h4>
+            </span>
+            <p>$g(\bm{x}) \geqq 0$なる制約の下で$f(\bm{x})$を最大化する問題を考える。これが凸計画問題であるとき，$(\bm{x}^*, \lambda^*)$が$L(\bm{x}, \lambda) = f(\bm{x}) + \lambda g(\bm{x})$の鞍点ならば，$\bm{x}^*$は最適解であることを証明せよ。</p>
+        </div>
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 7 】</h4>
+            </span>
+            <p>$a_i \gt 0$と$b_i$は定数とする。つぎの最大化問題を解け: 
+                $$\max. \quad - \sum_i a_i x_i^2$$
+                $$\mathrm{s. t. } \sum_i b_i x_i - 1 \geqq 0$$
+            </p>
+        </div>
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 8 】</h4>
+            </span>
+            <p>サイコロの例を考えよう。各数字が出る確率はすべて等しく，$1/6$であるとしよう。このサイコロを1回投げたときに出る値の期待値を計算せよ。</p>
+        </div>
+
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 9 】</h4>
+            </span>
+            <p>確率変数$X_1, X_2, X_3, X_4$の任意の値$x_1, x_2, x_3, x_4$に対し，つぎの等式が成り立つことを示せ(ただし，$P(x_2|x_3, x_4) \neq 0, P(x_3, x_4) \neq 0$とする): 
+                $$P(x_1| x_2, x_3, x_4) = \frac{P(x_1, x_2| x_3, x_4)}{P(x_2|x_3, x_4)}$$
+            </p>
+        </div>
+
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 10 】</h4>
+            </span>
+            <p>例題1.17と同じ確率分布を考える。すなわち，"Yes"と発せられる確率$p$が0.8であり，5つの発言があったとする。"Yes"が発せされる回数は二項分布に従うとする。このとき，"Yes"の回数が"No"の回数より多い確率を求めよ。</p>
+        </div>
+
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 11 】</h4>
+            </span>
+            <p>ポアソン分布からのサンプルデータの対数尤度
+                $$\log P(D) = \sum_{x^(i) \in D} \log \left(\frac{\mu^{x^{(i)}}}{x^{(i)!}} e^{-\mu} \right)$$
+                は$\mu$に関して上に凸であることを示せ。
+            </p>
+        </div>
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 12 】</h4>
+            </span>
+            <p>$\log \dis{\prod_w} p_w + \dis{\sum_{w}} n_w \log p_w$が凸関数であることを示せ。</p>
+        </div>
+
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 13 】</h4>
+            </span>
+            <p>1.5.3項で扱った問題を考える。すなわち，P氏は4単語good, bad, exciting, boringをそれぞれ確率$p_{\mathrm{good}}, p_{\mathrm{bad}}, p_{\mathrm{exciting}}, p_{\mathrm{boring}}$で発するとする。データ$D$中での上記4単語の出現回数は，それぞれ$n_{\mathrm{good}}, n_{\mathrm{bad}}, n_{\mathrm{exciting}}, n_{\mathrm{boring}}$である。このとき，MAP推定を用いてパラメータ$p_{\mathrm{good}}, p_{\mathrm{bad}}, p_{\mathrm{exciting}}, p_{\mathrm{boring}}$を求めよ。ただし，事前確率は一般のディリクレ分布で与えられているとする: 
+                $$P(\theta) \propto (p_{\mathrm{good}})^{\alpha - 1} \times (p_{\mathrm{bad}})^{\alpha - 1} \times (p_{\mathrm{exciting}})^{\alpha - 1} \times (p_{\mathrm{boring}}) ^{\alpha - 1}$$
+            </p>
+        </div>
+
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 14 】</h4>
+            </span>
+            <p>例題1.20と同じデータが与えられたとする。すなわち，$n_{\mathrm{good}} = 5, n_{\mathrm{bad}} = 1, n_{\mathrm{exciting}} = 4, n_{\mathrm{boring}} = 0$であるとする。このとき，$p_{\mathrm{good}}, p_{\mathrm{bad}}, p_{\mathrm{exciting}}, p_{\mathrm{boring}}$を求めよ。ただし，事前分布がつぎのように与えられているとして，最大事後確率推定を用いよ: 
+                $$P(p_{\mathrm{good}} = 0.50, p_{\mathrm{bad}} = 0.10, p_{\mathrm{exciting}} = 0.30, p_{\mathrm{boring}} = 0.10) = 0.01, $$
+                $$P(p_{\mathrm{good}} = 0.25, p_{\mathrm{bad}} = 0.25, p_{\mathrm{exciting}} = 0.25, p_{\mathrm{boring}} = 0.25) = 0.49, $$
+                $$P(p_{\mathrm{good}} = 0.20, p_{\mathrm{bad}} = 0.30, p_{\mathrm{exciting}} = 0.10, p_{\mathrm{boring}} = 0.40) = 0.50$$
+            </p>
+        </div>
+
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 15 】</h4>
+            </span>
+            <p>非負の整数からなるデータ$D = \{x^{(1)}, x^{(2)}, \cdots, x^{(|D|)}\}$が与えられたとする。KLダイバージェンスを速さの指標として用いて，最尤推定で求められる分布に最も近いポアソン分布を求めよ。</p>
+        </div>
+
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 16 】</h4>
+            </span>
+            <p>JSダイバージェンスとエントロピーとの関係を表すつぎの等式を証明せよ: 
+                $$D_{JS} (P||Q) = - \frac{H(P) + H(Q)}{2} + H \left(\frac{P + Q}{2} \right)$$
+                ただし，$H$はエントロピーを与える関数を表し，$\cfrac{P + Q}{2}$は，$R(x) = \cfrac{P(x) + Q(x)}{2}$で定義される確率分布である。
+            </p>
+        </div>
+
+
+        <div class="def ">
+            <span class="def-t ">
+                <h4>【 17 】</h4>
+            </span>
+            <p>相互情報量とエントロピーとの関係を表すつぎの等式を証明せよ: 
+                $$MI(X, Y) = H(X) - H(X|Y)$$
+            </p>
+        </div>
+
+    
+
+        <p style="text-align:right;"><a href="#top" class="btn-square-slant ">↑トップに戻る</a></p>
+        <div class="flex">
+            <p style="width:33%;"></p>
+            <p style="width:33%;"><a href="../index.html " class="btn-square-slant ">トップページに戻る</a></p>
+            <p style="width:33%;"><a href="./note2.html " class="btn-square-slant ">次のページに移る→</a></p>
+        </div>
+
+        <br>
+
+    </div>
+    
+</body>
+
+</html>
