@@ -85,7 +85,7 @@
         <h3 id="syomatsu">章末問題(p. 59)</h3>
         <div class="def ">
             <span class="def-t ">
-                <h4>【 1 】</h4>
+                <h4 id="1">【 1 】</h4>
             </span>
             <p>不等式を用いて表されるつぎのような集合
                 $$A = \{\bm{x} \in \R^d| \bm{v} \cdot \bm{x} \geqq b \} $$
@@ -119,7 +119,7 @@
 
         <div class="def ">
             <span class="def-t ">
-                <h4>【 2 】</h4>
+                <h4 id="2">【 2 】</h4>
             </span>
             <p>二つの凸集合$A$と$B$に対し，$A \cap B$も凸集合になることを示せ。</p>
         </div>
@@ -143,7 +143,7 @@
 
         <div class="def ">
             <span class="def-t ">
-                <h4>【 3 】</h4>
+                <h4 id="3">【 3 】</h4>
             </span>
             <p>二つの凸集合$A$と$B$に対し，$A \cup B$は凸とは限らないことを示せ。</p>
         </div>
@@ -185,7 +185,7 @@
 
         <div class="def ">
             <span class="def-t ">
-                <h4>【 4 】</h4>
+                <h4 id="4">【 4 】</h4>
             </span>
             <p>任意の$x^{(1)}$と$x^{(2)}$について，$f(x^{(2)}) - f(x^{(1)}) \leqq \nabla f(x^{(1)}) (x^{(2)} - x^{(1)})$であるとき，関数$f$が上に凸であることを示せ。</p>
         </div>
@@ -237,7 +237,7 @@
 
         <div class="def ">
             <span class="def-t ">
-                <h4>【 5 】</h4>
+                <h4 id="5">【 5 】</h4>
             </span>
             <p>つぎを示せ: </p>
             <p>(1) 定数は上にも下にも凸である。</p>
@@ -277,7 +277,7 @@
 
         <div class="def ">
             <span class="def-t ">
-                <h4>【 6 】</h4>
+                <h4 id="6">【 6 】</h4>
             </span>
             <p>$g(\bm{x}) \geqq 0$なる制約の下で$f(\bm{x})$を最大化する問題を考える。これが凸計画問題であるとき，$(\bm{x}^*, \lambda^*)$が$L(\bm{x}, \lambda) = f(\bm{x}) + \lambda g(\bm{x})$の鞍点ならば，$\bm{x}^*$は最適解であることを証明せよ。</p>
         </div>
@@ -322,7 +322,7 @@
 
         <div class="def ">
             <span class="def-t ">
-                <h4>【 7 】</h4>
+                <h4 id="7">【 7 】</h4>
             </span>
             <p>$a_i \gt 0$と$b_i$は定数とする。つぎの最大化問題を解け: 
                 $$\max. \quad - \sum_i a_i x_i^2$$
@@ -377,37 +377,78 @@
 
         <div class="def ">
             <span class="def-t ">
-                <h4>【 8 】</h4>
+                <h4 id="8">【 8 】</h4>
             </span>
-            <p>サイコロの例を考えよう。各数字が出る確率はすべて等しく，$1/6$であるとしよう。このサイコロを1回投げたときに出る値の期待値を計算せよ。</p>
+                <p>サイコロの例を考えよう。各数字が出る確率はすべて等しく，$1/6$であるとしよう。このサイコロを1回投げたときに出る値の期待値を計算せよ。</p>
+                <img src="./image/dice.png" alt="サイコロ" width="20%">
         </div>
 
         <div class="ans">
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+
+            <div class="text">
+                <p>サイコロの目を$X$とすると，表のように表すことができる。</p>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>$X$</th>
+                            <td>$1$</td>
+                            <td>$2$</td>
+                            <td>$3$</td>
+                            <td>$4$</td>
+                            <td>$5$</td>
+                            <td>$6$</td>
+                        </tr>
+                        <tr>
+                            <th>$P(X)$</th>
+                            <td>$\cfrac{1}{6}$</td>
+                            <td>$\cfrac{1}{6}$</td>
+                            <td>$\cfrac{1}{6}$</td>
+                            <td>$\cfrac{1}{6}$</td>
+                            <td>$\cfrac{1}{6}$</td>
+                            <td>$\cfrac{1}{6}$</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>$\require{cancel}$ したがって，期待値$m_X$は，$$\begin{align*} m_X &= \dis{\sum_x} xP(X = x) \\ &= 1 \times \cfrac{1}{6} + 2 \times \cfrac{1}{6} + \cdots + 6 \times \cfrac{1}{6} \\ &= \cfrac{1}{6} \cdot \dis{\sum_{k = 1}^6} k \\ &= \cfrac{1}{\cancel{6}} \cdot \cfrac{1}{2} \cdot \cancel{6} \cdot 7 = \cfrac{7}{2} \end{align*}$$ $\therefore m_X = \cfrac{7}{2}$</p>
+            </div>
         </div>
 
         <div class="def ">
             <span class="def-t ">
-                <h4>【 9 】</h4>
+                <h4 id="9">【 9 】</h4>
             </span>
             <p>確率変数$X_1, X_2, X_3, X_4$の任意の値$x_1, x_2, x_3, x_4$に対し，つぎの等式が成り立つことを示せ(ただし，$P(x_2|x_3, x_4) \neq 0, P(x_3, x_4) \neq 0$とする): 
-                $$P(x_1| x_2, x_3, x_4) = \frac{P(x_1, x_2| x_3, x_4)}{P(x_2|x_3, x_4)}$$
+                $$P(x_1| x_2, x_3, x_4) = \frac{P(x_1, x_2| x_3, x_4)}{P(x_2|x_3, x_4)} \qquad \cdots \cdots ①$$
             </p>
         </div>
 
+        <div class="th">
+            <span class="th-t">
+                <h5>方針</h5>
+            </span>
+            <p>教科書p.27にあるように，$$P(x,y) = P(x|y)P(y) \tag{1.23}\quad $$を順次適用していけばよい。</p>
+        </div>
+
         <div class="ans">
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <p>①の左辺より，$$P(x_1| x_2, x_3, x_4) = \cfrac{P(x_1, x_2, x_3, x_4)}{P(x_2, x_3, x_4)}$$</p>
+            <p>①の右辺より，
+                $$P(x_1, x_2| x_3, x_4) = \cfrac{P(x_1, x_2, x_3, x_4)}{P(x_3, x_4)}$$
+                $$P(x_2| x_3, x_4) = \cfrac{P(x_2, x_3, x_4)}{P(x_3, x_4)}$$
+            となるから，
+                $$\cfrac{P(x_1, x_2| x_3, x_4)}{P(x_2| x_3, x_4)} = \cfrac{\cfrac{P(x_1, x_2, x_3, x_4)}{\cancel{P(x_3, x_4)}}}{\cfrac{P(x_2, x_3, x_4)}{\cancel{P(x_3, x_4)}}} = \cfrac{P(x_1, x_2, x_3, x_4)}{P(x_2, x_3, x_4)}$$
+            </p>
+            <p>したがって，①の左辺と右辺が一致するから，①は成り立つ。</p>
         </div>
 
         <div class="def ">
             <span class="def-t ">
-                <h4>【 10 】</h4>
+                <h4 id="10">【 10 】</h4>
             </span>
             <p>例題1.17と同じ確率分布を考える。すなわち，"Yes"と発せられる確率$p$が0.8であり，5つの発言があったとする。"Yes"が発せされる回数は二項分布に従うとする。このとき，"Yes"の回数が"No"の回数より多い確率を求めよ。</p>
         </div>
@@ -416,15 +457,32 @@
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <p>"Yes"の発言回数を$X$とすると，$X$は二項分布$B(5, 0.8)$に従う。</p>
+            <p>したがって，各$X$における確率を表にすると，</p>
+            <table>
+                    <tr><td>$X$</td><td>$P(X)$</td></tr>
+                    <tr><td>$0$</td><td>${}_5 \mathrm{C}_0 \;(0.8)^0 \; (1-0.8)^5$</td></tr>
+                    <tr><td>$1$</td><td>${}_5 \mathrm{C}_1 \;(0.8)^1 \; (1-0.8)^4$</td></tr>
+                    <tr><td>$2$</td><td>${}_5 \mathrm{C}_2 \;(0.8)^2 \; (1-0.8)^3$</td></tr>
+                    <tr><td>$3$</td><td>${}_5 \mathrm{C}_3 \;(0.8)^3 \; (1-0.8)^2$</td></tr>
+                    <tr><td>$4$</td><td>${}_5 \mathrm{C}_4 \;(0.8)^4 \; (1-0.8)^1$</td></tr>
+                    <tr><td>$5$</td><td>${}_5 \mathrm{C}_5 \;(0.8)^5 \; (1-0.8)^0$</td></tr>
+            </table>
+            <p>したがって，このうち"Yes"の回数が"No"の回数より多い$P(X = 3), P(X = 4), P(X = 5)$の確率の総和が求める確率となるから，
+                $$P(X = 3) = {}_5 \mathrm{C}_3 \;(0.8)^3 \; (1-0.8)^2 = 0.2048$$
+                $$P(X = 4) = {}_5 \mathrm{C}_4 \;(0.8)^4 \; (1-0.8)^1 = 0.4096$$
+                $$P(X = 5) = {}_5 \mathrm{C}_5 \;(0.8)^5 \; (1-0.8)^0 = 0.32768$$
+                $$\therefore \dis{\sum_{x = 3}^5} P(X = x) = 0.2048 + 0.4096 + 0.32768 = 0.94208$$
+            </p>
+        
         </div>
 
         <div class="def ">
             <span class="def-t ">
-                <h4>【 11 】</h4>
+                <h4 id="11">【 11 】</h4>
             </span>
             <p>ポアソン分布からのサンプルデータの対数尤度
-                $$\log P(D) = \sum_{x^(i) \in D} \log \left(\frac{\mu^{x^{(i)}}}{x^{(i)!}} e^{-\mu} \right)$$
+                $$\log P(D) = \sum_{x^(i) \in D} \log \left(\frac{\mu^{x^{(i)}}}{x^{(i)}!} e^{-\mu} \right)$$
                 は$\mu$に関して上に凸であることを示せ。
             </p>
         </div>
@@ -433,12 +491,20 @@
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <p>$\log P(D)$は$D$の要素である$x^{(i)}$に関する1変数関数$\; \displaystyle \log \left(\frac{\mu^{x^{(i)}}}{x^{(i)}!} e^{-\mu}\right)\;$の総和であることから，各$\; \displaystyle \log \left(\frac{\mu^{x^{(i)}}}{x^{(i)}!} e^{-\mu}\right)\;$が上に凸であれば，対数尤度$\log P(D)$は上に凸である。</p>
+            <p>したがって，$\; \displaystyle \log \left(\frac{\mu^{x^{(i)}}}{x^{(i)}!} e^{-\mu}\right)\;$が上に凸であるかを考える。</p>
+            <p>$\log$の性質より， $$\log \left(\frac{\mu^{x^{(i)}}}{x^{(i)}!} e^{-\mu}\right) = x^{(i)} \log \mu - \log x^{(i)} ! - \mu$$となる。</p>
+            <p>ここで，$x^{(i)}\geqq 0$が成り立つことを利用して，各項が上に凸であるか考える。</p>
+            <p>$f(\mu) = x^{(i)}\log \mu$は，$f''(\mu) = - \cfrac{x^{(i)}}{\mu^2} \leqq 0$より上に凸，$-\log x^{(i)}!$は定数であるから上に凸，$-\mu$は$(-\mu)'' = 0$より上に凸である。</p>
+            <p>したがって，対数尤度
+                $$\log P(D) = \sum_{x^(i) \in D} \log \left(\frac{\mu^{x^{(i)}}}{x^{(i)}!} e^{-\mu} \right)$$
+                は$\mu$に関して上に凸である。</p>
+            
         </div>
 
         <div class="def ">
             <span class="def-t ">
-                <h4>【 12 】</h4>
+                <h4 id="12">【 12 】</h4>
             </span>
             <p>$\log \dis{\prod_w} p_w + \dis{\sum_{w}} n_w \log p_w$が凸関数であることを示せ。</p>
         </div>
@@ -447,16 +513,28 @@
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+           <p>$$\begin{align*} \log \dis{\prod_w} p_w + \dis{\sum_{w}} n_w \log p_w &= \sum_w \log p_w + \sum_w n_w \log p_w \\ &= \sum_w (1 + n_w) \log p_w\end{align*}$$</p>
+           <p>したがって，$\dis{\sum_w }(1 + n_w) \log p_w$が上に凸であることを示せばよいから，$p_w$について二階微分して，
+            $$\frac{\partial}{\partial p_w} \left( \sum_w(1 + n_w) \log p_w\right) = \sum_w \frac{1 + n_w}{p_w} $$
+            $$\frac{\partial^2}{\partial p_w^2} \left( \sum_w(1 + n_w) \log p_w\right) = \sum_w -\frac{1 + n_w}{{p_w}^2} \leqq 0$$
+            となるから，$\log \dis{\prod_w} p_w + \dis{\sum_{w}} n_w \log p_w$は凸関数である。
+           </p>
         </div>
 
         <div class="def ">
             <span class="def-t ">
-                <h4>【 13 】</h4>
+                <h4 id="13">【 13 】</h4>
             </span>
             <p>1.5.3項で扱った問題を考える。すなわち，P氏は4単語good, bad, exciting, boringをそれぞれ確率$p_{\mathrm{good}}, p_{\mathrm{bad}}, p_{\mathrm{exciting}}, p_{\mathrm{boring}}$で発するとする。データ$D$中での上記4単語の出現回数は，それぞれ$n_{\mathrm{good}}, n_{\mathrm{bad}}, n_{\mathrm{exciting}}, n_{\mathrm{boring}}$である。このとき，MAP推定を用いてパラメータ$p_{\mathrm{good}}, p_{\mathrm{bad}}, p_{\mathrm{exciting}}, p_{\mathrm{boring}}$を求めよ。ただし，事前確率は一般のディリクレ分布で与えられているとする: 
                 $$P(\theta) \propto (p_{\mathrm{good}})^{\alpha - 1} \times (p_{\mathrm{bad}})^{\alpha - 1} \times (p_{\mathrm{exciting}})^{\alpha - 1} \times (p_{\mathrm{boring}}) ^{\alpha - 1}$$
             </p>
+        </div>
+
+        <div class="th">
+            <span class="th-t">
+                <h5>方針</h5>
+            </span>
+
         </div>
 
         <div class="ans">
@@ -468,7 +546,7 @@
 
         <div class="def ">
             <span class="def-t ">
-                <h4>【 14 】</h4>
+                <h4 id="14">【 14 】</h4>
             </span>
             <p>例題1.20と同じデータが与えられたとする。すなわち，$n_{\mathrm{good}} = 5, n_{\mathrm{bad}} = 1, n_{\mathrm{exciting}} = 4, n_{\mathrm{boring}} = 0$であるとする。このとき，$p_{\mathrm{good}}, p_{\mathrm{bad}}, p_{\mathrm{exciting}}, p_{\mathrm{boring}}$を求めよ。ただし，事前分布がつぎのように与えられているとして，最大事後確率推定を用いよ: 
                 $$P(p_{\mathrm{good}} = 0.50, p_{\mathrm{bad}} = 0.10, p_{\mathrm{exciting}} = 0.30, p_{\mathrm{boring}} = 0.10) = 0.01, $$
@@ -486,7 +564,7 @@
 
         <div class="def ">
             <span class="def-t ">
-                <h4>【 15 】</h4>
+                <h4 id="15">【 15 】</h4>
             </span>
             <p>非負の整数からなるデータ$D = \{x^{(1)}, x^{(2)}, \cdots, x^{(|D|)}\}$が与えられたとする。KLダイバージェンスを速さの指標として用いて，最尤推定で求められる分布に最も近いポアソン分布を求めよ。</p>
         </div>
@@ -500,7 +578,7 @@
 
         <div class="def ">
             <span class="def-t ">
-                <h4>【 16 】</h4>
+                <h4 id="16">【 16 】</h4>
             </span>
             <p>JSダイバージェンスとエントロピーとの関係を表すつぎの等式を証明せよ: 
                 $$D_{JS} (P||Q) = - \frac{H(P) + H(Q)}{2} + H \left(\frac{P + Q}{2} \right)$$
@@ -517,7 +595,7 @@
 
         <div class="def ">
             <span class="def-t ">
-                <h4>【 17 】</h4>
+                <h4 id="17">【 17 】</h4>
             </span>
             <p>相互情報量とエントロピーとの関係を表すつぎの等式を証明せよ: 
                 $$MI(X, Y) = H(X) - H(X|Y)$$
