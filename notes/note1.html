@@ -515,15 +515,15 @@
             </span>
            <p>$$\begin{align*} \log \dis{\prod_w} p_w + \dis{\sum_{w}} n_w \log p_w &= \sum_w \log p_w + \sum_w n_w \log p_w \\ &= \sum_w (1 + n_w) \log p_w\end{align*}$$</p>
            <p>したがって，$\dis{\sum_w }(1 + n_w) \log p_w$が上に凸であることを示せばよいから，$p_w$について二階微分して，
-            $$\frac{\partial}{\partial p_w} \left( \sum_w(1 + n_w) \log p_w\right) = \sum_w \frac{1 + n_w}{p_w} $$
-            $$\frac{\partial^2}{\partial p_w^2} \left( \sum_w(1 + n_w) \log p_w\right) = \sum_w -\frac{1 + n_w}{{p_w}^2} \leqq 0$$
-            となるから，$\log \dis{\prod_w} p_w + \dis{\sum_{w}} n_w \log p_w$は凸関数である。
+                $$\frac{\partial}{\partial p_w} \left( \sum_w(1 + n_w) \log p_w\right) = \sum_w \frac{1 + n_w}{p_w} $$
+                $$\frac{\partial^2}{\partial p_w^2} \left( \sum_w(1 + n_w) \log p_w\right) = \sum_w -\frac{1 + n_w}{{p_w}^2} \leqq 0$$
+                となるから，$\log \dis{\prod_w} p_w + \dis{\sum_{w}} n_w \log p_w$は凸関数である。
            </p>
         </div>
 
         <div class="def ">
             <span class="def-t ">
-                <h4 id="13">【 13 】</h4>
+                <h4 >【 13 】</h4>
             </span>
             <p>1.5.3項で扱った問題を考える。すなわち，P氏は4単語good, bad, exciting, boringをそれぞれ確率$p_{\mathrm{good}}, p_{\mathrm{bad}}, p_{\mathrm{exciting}}, p_{\mathrm{boring}}$で発するとする。データ$D$中での上記4単語の出現回数は，それぞれ$n_{\mathrm{good}}, n_{\mathrm{bad}}, n_{\mathrm{exciting}}, n_{\mathrm{boring}}$である。このとき，MAP推定を用いてパラメータ$p_{\mathrm{good}}, p_{\mathrm{bad}}, p_{\mathrm{exciting}}, p_{\mathrm{boring}}$を求めよ。ただし，事前確率は一般のディリクレ分布で与えられているとする: 
                 $$P(\theta) \propto (p_{\mathrm{good}})^{\alpha - 1} \times (p_{\mathrm{bad}})^{\alpha - 1} \times (p_{\mathrm{exciting}})^{\alpha - 1} \times (p_{\mathrm{boring}}) ^{\alpha - 1}$$
@@ -534,14 +534,61 @@
             <span class="th-t">
                 <h5>方針</h5>
             </span>
-
+            <p>この問題では最大事後確率推定(MAP推定)を行う。</p>
+            <p>この事後確率の最大化は次のようにして示すことができる。</p>
+            <p>$$\begin{align*} \mathrm{arg}\; \underset{\theta}{\max} P(\theta|D) &= \mathrm{arg}\; \underset{\theta}{\max} \frac{P(\theta) \cdot P(D|\theta)}{P(D)}  \\ &= \mathrm{arg}\; \underset{\theta}{\max} P(\theta) \cdot P(D|\theta) \end{align*}$$</p>
+            <p>この式は事後確率の最大値は事前確率と尤度の積を最大化したものと等しいことを示していて，最大化する式$P(\theta)\cdot P(D|\theta)$の対数を取った式$\log P(\theta) \cdot P(D|\theta)$を最大化することを考える。</p>
+            <p>すなわち，問題文より，
+                $$\log P(\boldsymbol{p}) \cdot P(D|\boldsymbol{p}) = \log P(\boldsymbol{p}) + \sum_w n_w \log p_w$$
+            を最大化することで，MAP推定できる。
+            </p>
+            <p>この関数が凸関数であることは【12】のように明らかであるから，ラグランジュの未定乗数法を用いて最大化を図る。</p>
+            <p>すなわち，
+                $$\begin{cases} \max \;\log P(\boldsymbol{p}) + \dis{\sum_w} n_w \log p_w \\ \mathrm{s.t.} \;\dis{\sum_w} p_w - 1 = 0\end{cases}$$
+                の凸計画問題を解けばよい。
+            </p>
         </div>
 
         <div class="ans">
-            <span class="ans-t">
+            <span class="ans-t" id="13">
                 <h5>解答</h5>
             </span>
-           
+            <p>$\boldsymbol{p} = (p_{\mathrm{good}}, p_{\mathrm{bad}}, p_{\mathrm{exciting}}, p_{\mathrm{boring}}), w \in \{\mathrm{good}, \mathrm{bad}, \mathrm{exciting}, \mathrm{boring}\}$とする。</p>
+            <p>問題文より，
+                $$\log P(\boldsymbol{p}) \cdot P(D|\boldsymbol{p}) = \log P(\boldsymbol{p}) + \sum_w n_w \log p_w $$
+                を最大化することで，MAP推定を行う。
+            </p>
+            <p>この関数は凸関数であることが，【12】のように明らかであることから，ラグランジュの未定乗数法を用いて最大化する。</p>
+            <p>ここで，ラグランジュ関数$L(\boldsymbol{p}, \lambda)$は，
+                $$\begin{align*} 
+                    L(\boldsymbol{p}, \lambda) &= \log P(\boldsymbol{p}) + \sum_w n_w \log p_w + \lambda \left(\sum_w p_w - 1 \right) \\
+                    &= (\alpha - 1) \sum_{w} \log p_w + \sum_w n_w \log p_w + \lambda \left(\sum_w p_w - 1 \right) \\
+                \end{align*} $$
+            </p>
+            <p>したがって，このラグランジュ関数を$p_w, \lambda$について偏微分すると，
+                $$\frac{\partial L(\boldsymbol{p}, \lambda)}{\partial\, p_w} = \frac{\alpha - 1}{p_w} + \frac{n_w}{p_w} + \lambda$$
+                $$\frac{\partial L(\boldsymbol{p}, \lambda)}{\partial\, \lambda} = \sum_w p_w - 1$$
+                となる。
+            </p>
+            <p>この偏微分した式，それぞれが0になるとき，最適化されるから，それぞれ式変形して，
+                $$
+                    \left\{ \,
+                        \begin{aligned}
+                          & \frac{n_w + (\alpha - 1)}{p_w} + \lambda = 0 \cdots \cdots ①\\
+                          & \sum_w p_w - 1 = 0 \cdots \cdots ➁
+                        \end{aligned}
+                    \right.
+                $$
+                となる。
+            </p>
+            <p>①より，
+                $$p_w = \frac{1 - \alpha - n_w}{\lambda}$$
+                となるからこれを➁に代入して，
+                $$\lambda = 4(1 - \alpha) - N$$
+            </p>
+            <p>よって，これを①に代入して，
+                $$p_w = \frac{n_w + \alpha - 1}{N + 4(\alpha - 1)} \qquad (N = n_{\mathrm{good}} + n_{\mathrm{bad}} + n_{\mathrm{exciting}} + n_{\mathrm{boring}} )$$
+            </p>
         </div>
 
         <div class="def ">
