@@ -92,7 +92,20 @@
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <p>それぞれベクトル化すると，次のようになる。</p>
+            <p>$$\begin{align*} 
+                \boldsymbol{x}_{\mathrm{unigram}} &= (n(\mathrm{``a"}), n(\mathrm{``r"}), n(\mathrm{``t"})) \\
+                &= (4, 2, 6)
+                \end{align*}$$</p>
+            <p>$$\begin{align*} 
+                \boldsymbol{x}_{\mathrm{bigram}} &= (n(\mathrm{``ar"}), n(\mathrm{``at"}), n(\mathrm{``ra"}), n(\mathrm{``rr"}), n(\mathrm{``ta"}), n(\mathrm{``tt"}) ) \\
+                &= (1, 3, 1, 1, 3, 2)
+                \end{align*}$$</p>
+            <p>$$\begin{align*} 
+                \boldsymbol{x}_{\mathrm{trigram}} &= (n(\mathrm{``arr"}), n(\mathrm{``att"}), n(\mathrm{``rat"}), n(\mathrm{``rra"}), n(\mathrm{``tar"}), n(\mathrm{``tat"}), n(\mathrm{``tta"}) ) \\
+                &= (1, 2, 1, 1, 1, 2, 2)
+                \end{align*}$$</p>
+
         </div>
 
         <div class="def ">
@@ -107,7 +120,14 @@
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <p>ストップワード削除と見出し語化を行うと，残るトークンは"cat", "sit", "mat"となる。</p>
+            <p>よって，これらをベクトル化すると，
+                $$\begin{align*} 
+                \boldsymbol{x}_s &= (n(\mathrm{``cat"}, s), n(\mathrm{``sit"}, s), n(\mathrm{``mat"}, s)) \\
+                &= (1, 1, 1)
+                \end{align*}$$
+            </p>
+
         </div>
 
         <div class="def ">
@@ -123,7 +143,12 @@
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <p>文脈ベクトルで表現すると，
+                $$\begin{align*} 
+                    \boldsymbol{x} &= (n(\mathrm{``had"}_{-2}), n(\mathrm{``a"}_{-1}), n(\mathrm{``time"}_{+1}), n(\mathrm{``with"}_{+2})) \\
+                    &= (1, 1, 1, 1)
+                \end{align*}$$
+            </p>
         </div>
 
 
