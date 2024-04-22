@@ -624,11 +624,63 @@
             <p>非負の整数からなるデータ$D = \{x^{(1)}, x^{(2)}, \cdots, x^{(|D|)}\}$が与えられたとする。KLダイバージェンスを速さの指標として用いて，最尤推定で求められる分布に最も近いポアソン分布を求めよ。</p>
         </div>
 
+        <div class="th">
+            <span class="th-t">
+                <h5>方針</h5>
+            </span>
+            <p>KLダイバージェンスの定義は次の通りである。</p>
+            <p>$$D_\mathrm{KL}(P||Q) = \sum_x P(X = x) \log \cfrac{P(X = x)}{Q(X = x)}$$</p>
+            <p>KLダイバージェンスを用いることで，2つの確率分布に対して，それらの間の異なり具合を測ることができる。</p>
+            <p>なお，KLはカルバック・ライブラー(Kullback Leibler)の略。</p>
+        </div>
+
         <div class="ans">
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <p>まずは，最尤推定で求められる確率分布を求める。</p>
+            <p>対数尤度は，事象$x$となる確率を$p_x$，データ$D$中に含まれる事象$x$の個数を$n_x$として表すと，
+                $$\log \prod_{x^{(i)} \in D}P(x^{(i)}) = \sum_{x^{(i)} \in D} \log P(x^{(i)}) = \sum_x n_x \log p_x$$
+                となる。
+            </p>
+            <p>制約条件は，$\dis{\sum_x} p_x = 1$として，最大化を試みる。</p>
+            <p>ここで，ラグランジュ関数$L(\boldsymbol{p}, \lambda)$は，
+                $$L(\boldsymbol{p}, \lambda) = \sum_x n_x \log p_x + \lambda \left(\sum_x p_x - 1 \right)$$
+                となるから，これを偏微分して，
+                $$\frac{\partial L(\boldsymbol{p}, \lambda)}{\partial p_x} = \frac{n_x}{p_x} + \lambda $$
+                $$\frac{\partial L(\boldsymbol{p}, \lambda)}{\partial \lambda} = \sum_x p_x - 1$$
+            </p>
+            <p>よって，これらの式がそれぞれ0になるとき，最大値を取るから，次の連立方程式が成り立つ。
+            $$
+                \left\{ \,
+                    \begin{aligned}
+                      & \frac{n_x}{p_x} + \lambda = 0 \cdots \cdots ①\\
+                      & \sum_x p_x - 1 = 0 \cdots \cdots ➁
+                    \end{aligned}
+                \right.
+            $$
+            </p>
+            <p>①より，$p_w = -\cfrac{n_x}{\lambda}$となるから，これを➁に代入して，
+                $$\sum_x \left(-\cfrac{n_x}{\lambda} \right)= 1$$
+                $$\therefore \lambda = - N$$
+            </p>
+            <p>よって，これを①に代入して，
+                $$p_x = \frac{n_x}{\dis{\sum_x} n_x}$$
+            </p>
+            <p>したがって，この分布に近いポアソン分布$Q(x; \mu)= \cfrac{\mu^x}{x!}e^{-\mu}$を求めればよい。</p>
+            <p>KLダイバージェンスを計算して，
+                $$\begin{align*} 
+                D_{\mathrm{KL}}(P||Q) &= \sum_x P(x) \log \cfrac{P(x)}{Q(x)} \\
+                &=  \sum_x \frac{n_x}{\dis{\sum_x} n_x} \log \cfrac{\frac{n_x}{\dis{\sum_x} n_x}}{\cfrac{\mu^x}{x!}e^{-\mu}} \\
+                &= \sum_x \frac{n_x}{\dis{\sum_x} n_x} \log \frac{n_x}{\dis{\sum_x} n_x} -  \sum_x \frac{n_x}{\dis{\sum_x} n_x} (x\log\mu -\log x! - \mu )
+                \end{align*}$$
+            </p>
+            <p>ここで，KLダイバージェンスを最大化することを考えるが，$\cfrac{\mu^x}{x!}e^{-\mu}$は$\mu$に関して上に凸であることから，KLダイバージェンスの関数は下に凸である。</p>
+            <p>よって，KLダイバージェンスを$\mu$で偏微分した値が0と等しくなるとき，KLダイバージェンスは最大値となるから，このときの$\mu$を求める。
+            </p>
+            <p>$$\frac{\partial D_{\mathrm{KL}(P||Q)}}{\partial \mu} = -\sum_x \frac{n_x}{\dis{\sum_x} n_x} x \frac{1}{\mu} + 1 = 0$$</p>
+            <p>$$\therefore \mu = \cfrac{\dis{\sum_x} n_x x}{\dis{\sum_x} n_x}$$</p>
+            <p>よって，最も近いポアソン分布は，$$ Q(x) = \cfrac{\left( \cfrac{\dis{\sum_x} n_x x}{\dis{\sum_x} n_x}\right)^x}{x!}\exp\left(- \cfrac{\dis{\sum_x} n_x x}{\dis{\sum_x} n_x}\right)$$</p>
         </div>
 
         <div class="def ">
@@ -640,12 +692,37 @@
                 ただし，$H$はエントロピーを与える関数を表し，$\cfrac{P + Q}{2}$は，$R(x) = \cfrac{P(x) + Q(x)}{2}$で定義される確率分布である。
             </p>
         </div>
+        
+        <div class="th">
+            <span class="th-t">
+                <h5>方針</h5>
+            </span>
+            <p>JSダイバージェンスの定義は次の通り。</p>
+            <p>$$D_{\mathrm{JS}} (P||Q) = \frac{1}{2} (D_{\mathrm{KL}}(P||R) + D_\mathrm{KL}(Q||R) )$$</p>
+            <p>ただし，$R(x) = \cfrac{P(x) + Q(x)}{2}$である。</p>
+            <p>JSダイバージェンスは，平均的な確率分布までのKLダイバージェンスの平均を示す。</p>
+            <p>具体的な数式で示すと，
+                $$\begin{align*} 
+                D_{\mathrm{JS}} (P||Q) &= \frac{1}{2} \left(\sum_x P(x) \log \cfrac{P(x)}{R(x)} + \sum_x Q(x) \log \cfrac{Q(x)}{R(x)} \right) \\
+                &= \frac{1}{2} \left(\sum_x P(x) \log \cfrac{P(x)}{\cfrac{P(x) + Q(x)}{2}} + \sum_x Q(x) \log \cfrac{Q(x)}{\cfrac{P(x) + Q(x)}{2}} \right)
+
+                \end{align*}$$
+            </p>
+            <p>なお，JSダイバージェンスのJSはジェンセン・シャノン(Jensen Shannon)の略である。</p>
+            <p>また，エントロピーの定義は次の通り。</p>
+            <p>$$H(P) = \sum_x -P(X = x)\log P(X = x)$$</p>
+        </div>
 
         <div class="ans">
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <p>$$\begin{align*} 
+                D_{\mathrm{JS}} (P||Q) &= \frac{1}{2} \left(\sum_x P(x) \log \cfrac{P(x)}{R(x)} + \sum_x Q(x) \log \cfrac{Q(x)}{R(x)} \right) \\
+                &= \frac{1}{2} \left\{ \sum_x P(x) \left(\log P(x) - \log R(x) \right) + \sum_x Q(x) \left(\log Q(x) - \log R(x) \right)  \right\} \\
+                &= \underbrace{ \sum_x - \underbrace{\frac{P(x) + Q(x)}{2}}_{R(x)} \log R(x)}_{H(R)}  - \frac{1}{2} \left\{ \underbrace{\sum_x - P(x)\log P(x)}_{H(P)} + \underbrace{\sum_x - Q(x) \log Q(x)}_{H(Q)} \right\} \\
+                &=  H \left(\frac{P + Q}{2} \right) - \frac{H(P) + H(Q)}{2} 
+                \end{align*}$$</p>
         </div>
 
         <div class="def ">
@@ -657,11 +734,26 @@
             </p>
         </div>
 
+
+        <div class="th">
+            <span class="th-t">
+                <h5>方針</h5>
+            </span>
+            <p>相互情報量$\mathrm{MI}(X, Y)$の定義は次の通りである。</p>
+            <p>$$\mathrm{MI}(X, Y) = \sum_{x, y} P(x, y) \log \frac{P(x, y)}{P(x) P(y)}$$</p>
+        </div>
+
         <div class="ans">
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <p>$$\frac{P(x, y)}{P(x) P(y)} = \frac{P(x|y) \cdot \cancel{P(y)}}{P(x) \cdot \cancel{P(y)}} = \frac{P(x|y)}{P(x)}$$となるから，
+                $$\begin{align*} \mathrm{MI}(X, Y) &= \sum_{x, y} P(x, y) \log \frac{P(x, y)}{P(x) P(y)} \\
+                &= \sum_{x, y} - P(x, y) \log P(x) - \sum_{x, y} - P(x, y) \log P(x|y) \\
+                &= \sum_x -P(x) \log P(x) - \sum_{x, y} - P(x, y) \log P(x|y) \\
+                &= H(X) - H(X|Y)
+                \end{align*}$$
+            </p>
         </div>
 
 
