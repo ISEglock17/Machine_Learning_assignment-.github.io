@@ -606,7 +606,15 @@
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <p>事前分布が問題文において，3つしか与えられていなく，離散的であることから，各$\boldsymbol{p} = (p_{\mathrm{good}},\; p_{\mathrm{bad}},\; p_{\mathrm{exciting}},\; p_{\mathrm{boring}})$において，どの場合に$\log (\theta) + \log P(D)$が最大になるかを調べて推定を行う。</p>
+            <p>
+                それぞれの場合において，$\log (\theta) + \log P(D)$を求めると，
+            $$\log 0.01 + \log (0.50^5 \cdot 0.10^1 \cdot 0.30^4 \cdot 0.10^0) = -15.1893824\cdots $$
+            $$\log 0.49 + \log (0.25^5 \cdot 0.25^1 \cdot 0.25^4 \cdot 0.25^0) = -14.5762935\cdots $$
+            $$\log 0.50 + \log (0.20^5 \cdot 0.30^1 \cdot 0.10^4 \cdot 0.40^0) = -19.15464992\cdots $$
+            となる。
+            </p>
+            <p>したがって，最大事後確率推定を行った結果は，$(p_{\mathrm{good}},\; p_{\mathrm{bad}},\; p_{\mathrm{exciting}},\; p_{\mathrm{boring}}) = (0.25, 0.25, 0.25, 0.25)$となる。</p>
         </div>
 
         <div class="def ">
