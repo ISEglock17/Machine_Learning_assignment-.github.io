@@ -754,7 +754,7 @@
                 <h5>解答</h5>
             </span>
             <p>$$\frac{P(x, y)}{P(x) P(y)} = \frac{P(x|y) \cdot \cancel{P(y)}}{P(x) \cdot \cancel{P(y)}} = \frac{P(x|y)}{P(x)}$$となるから，
-                $$\begin{align*} \mathrm{MI}(X, Y) &= \sum_{x, y} P(x, y) \log \frac{P(x, y)}{P(x)} \\
+                $$\begin{align*} \mathrm{MI}(X, Y) &= \sum_{x, y} P(x, y) \log \frac{P(x, y)}{P(x) P(y)} \\
                 &= \sum_{x, y} - P(x, y) \log P(x) - \sum_{x, y} - P(x, y) \log P(x|y) \\
                 &= \sum_x -P(x) \log P(x) - \sum_{x, y} - P(x, y) \log P(x|y) \\
                 &= H(X) - H(X|Y)
