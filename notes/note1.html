@@ -681,7 +681,7 @@
                 &= \sum_x \frac{n_x}{\dis{\sum_x} n_x} \log \frac{n_x}{\dis{\sum_x} n_x} -  \sum_x \frac{n_x}{\dis{\sum_x} n_x} (x\log\mu -\log x! - \mu )
                 \end{align*}$$
             </p>
-            <p>ここで，KLダイバージェンスを最大化することを考えるが，$\cfrac{\mu^x}{x!}e^{-\mu}$は$\mu$に関して上に凸であることから，KLダイバージェンスの関数は下に凸である。</p>
+            <p>ここで，KLダイバージェンスを最大化することを考えるが，$\cfrac{\mu^x}{x!}e^{-\mu}$は$\mu$に関して下に凸であることから，KLダイバージェンスの関数は上に凸である。</p>
             <p>よって，KLダイバージェンスを$\mu$で偏微分した値が0と等しくなるとき，KLダイバージェンスは最大値となるから，このときの$\mu$を求める。
             </p>
             <p>$$\frac{\partial D_{\mathrm{KL}(P||Q)}}{\partial \mu} = -\sum_x \frac{n_x}{\dis{\sum_x} n_x} x \frac{1}{\mu} + 1 = 0$$</p>
