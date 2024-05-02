@@ -235,7 +235,36 @@
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <p>$Q$関数は次のようになる。</p>
+            <p>$$Q(\theta; \theta') = \sum_{x, y} n_{x, y} \sum_c P(c|x, y; \theta') \log q_{x, c} \; r_{y, c} \; p_c$$</p>
+            <p>Eステップは，
+                $$P(c|x, y; \theta') = \frac{q'_{x, c} \; r'_{y, c} \; p'_c}{\dis{\sum_c} q'_{x, c} \; r'_{y, c} \; p'_c}$$
+                となる。
+            </p>
+            <p>Mステップで最大化するにあたり，ラグランジュ関数$L(\theta, \lambda_1, \lambda_2, \lambda_3)$を
+                $$\begin{align*} L(\theta, \lambda_1, \lambda_2, \lambda_3) &= Q(\theta; \theta') + \sum_c \lambda_1 \left(\sum_x q_{x, c} - 1 \right) + \sum_c \lambda_2 \left(\sum_y q_{y, c} - 1 \right) + \lambda_3 \left(\sum_c p_c - 1 \right)  
+                \end{align*}$$
+                とおく。
+            </p>
+            <p>よって，ラグランジュ関数をそれぞれの変数で偏微分した結果が0と等しいものとして，等式を作り，それらの連立方程式を解くことで，最大値が求められるから，
+                $$
+                \left\{ \,
+                    \begin{aligned}
+                    
+                & \frac{\partial L(\theta, \lambda_1, \lambda_2, \lambda_3)}{\partial q_{x, c}} = \sum_y n_{x, y} P(c|x, y; \theta') \frac{1}{q_{x, c}} + \lambda_1 = 0 \\
+                & \frac{\partial L(\theta, \lambda_1, \lambda_2, \lambda_3)}{\partial \lambda_1} = \sum_x q_{x, c} - 1 = 0
+                
+                \end{aligned}
+                \right.
+                $$
+                より，
+                $$q_{x, c} = \frac{\dis{\sum_y} n_{x,y} P(c|x, y; \theta') }{\dis{\sum_x \sum_y} n_{x, y} P(c|x, y; \theta')}$$
+                となる。
+            </p>
+            <p>同様にして，
+                $$r_{y, c} = \frac{\dis{\sum_x} n_{x,y} P(c|x, y; \theta') }{\dis{\sum_y \sum_x} n_{x, y} P(c|x, y; \theta')}$$
+                $$p_c = \frac{\dis{\sum_{x, y}} n_{x,y} P(c|x, y; \theta') }{\dis{\sum_c \sum_{x,y}} n_{x, y} P(c|x, y; \theta')}$$
+            </p>
         </div>
 
         <div class="def " id="3">
@@ -243,7 +272,7 @@
                 <h4>【 3 】</h4>
             </span>
             <p>3.5節で登場した混合正規分布について，この分布をEMアルゴリズムを用いて推定するときのMステップにおける更新式を求めよ(式(3.6))。$Q$関数は
-                $$Q(\theta; \theta') = \sum_{\bm{x}^(i) \in D} \sum_c \overline{P} (c| \bm{x}^(i); \theta') \log P(c) \frac{1}{\sqrt{(2\pi \sigma^2)^d}} \exp \left(- \frac{|\bm{x}^(i) - \bm{m}_c|^2}{2 \sigma^2} \right)$$
+                $$Q(\theta; \theta') = \sum_{\bm{x}^(i) \in D} \sum_c \overline{P} (c| \bm{x}^{(i)}; \theta') \log P(c) \frac{1}{\sqrt{(2\pi \sigma^2)^d}} \exp \left(- \frac{|\bm{x}^(i) - \bm{m}_c|^2}{2 \sigma^2} \right)$$
                 と表されているので，これを最大化する$\bm{m}_c$を求めればよい。
             </p>
         </div>
@@ -252,7 +281,14 @@
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <p>$Q$関数を$m_c$で偏微分すると，
+                $$\begin{align*} \nabla_{\boldsymbol{m_c}} Q(\theta; \theta') &=  \sum_{\bm{x}^{(i)} \in D} \overline{P} (c| \bm{x}^{(i)}; \theta') \nabla_{\boldsymbol{m_c}} \left\{- \frac{|\bm{x}^{(i)} - \bm{m}_c|^2}{2 \sigma^2} \right\} \\
+                &=  \sum_{\bm{x}^{(i)} \in D} \overline{P} (c| \bm{x}^{(i)}; \theta') \frac{\bm{x}^{(i)} - \bm{m}_c}{ \sigma^2}
+                \end{align*}$$
+            </p>
+            <p>したがって，この式が$\boldsymbol{0}$と等しいものとして，解くと，
+                $$\boldsymbol{m_c} = \frac{\dis{\sum_{\boldsymbol{x}^{(i)}\in D} \overline{P} (c|\boldsymbol{x}^{(i)}; \theta') \boldsymbol{x}^{(i)}}}{ \dis{\sum_{\boldsymbol{x}^{(i)}\in D}} \overline{P}(c|\boldsymbol{x}^{(i)}; \theta')}$$
+            </p>
         </div>
 
         <div class="def " id="4">
