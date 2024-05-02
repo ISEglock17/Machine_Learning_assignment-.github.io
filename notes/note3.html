@@ -305,7 +305,31 @@
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <p>$Q$関数を次のように定義する。</p>
+            <p>$$Q(\theta; \theta') = \sum_{d \in D} \sum_c P(c|d; \theta') \log p_c \frac{n!}{\dis{\prod_w} n_{w, d}!} \prod_w q_{w, c}^{n_{w, d}}$$</p>
+            <p>Eステップは，
+                $$\begin{align*} P(c|d; \theta') &= \cfrac{p_c \cfrac{n!}{\dis{\prod_w} n_{w, d}!} \prod_w q_{w, c}^{n_{w, d}}}{\dis{\sum_c}p_c \frac{n!}{\dis{\prod_w} n_{w, d}!} \dis{\prod_w} q_{w, c}^{n_{w, d}} } \\
+                &= \frac{p_c \dis{\prod_w} q_{w, c}^{n_{w, d}}}{\dis{\sum_c} p_c \dis{\prod_w} q_{w, c}^{n_{w, d}}}
+                \end{align*}$$
+                となる。
+            </p>
+            <p>Mステップで最大化するにあたり，ラグランジュ関数$L(\theta, \lambda_1, \lambda_2)$を次のように定義する。</p>
+            <p>$$L(\theta, \lambda_1, \lambda_2) = Q(\theta; \theta') + \lambda_1 \left(\sum_c p_c - 1 \right) + \sum_c \lambda_2 \left(\sum_w q_{w, c} - 1 \right)$$</p>
+            <p>ここで，ラグランジュ関数を各変数において偏微分して，0と等しいものとして，連立方程式を解くと，
+                $$\left\{ \,
+                \begin{aligned}
+                &\frac{\partial L(\theta, \lambda_1, \lambda_2)}{\partial p_c} = \sum_{d \in D} P(c|d; \theta') \frac{1}{p_c} + \lambda_1 = 0 \\
+                &\frac{\partial L(\theta, \lambda_1, \lambda_2)}{\partial q_{w, c}} = \sum_{d \in D} P(c|d; \theta') \frac{n_{w, d}}{q_{w, c}} + \lambda_2 = 0 \\
+                &\frac{\partial L(\theta, \lambda_1, \lambda_2)}{\partial \lambda_1} = \sum_c p_c - 1 = 0 \\
+                &\frac{\partial L(\theta, \lambda_1, \lambda_2)}{\partial \lambda_2} = \sum_w q_{w, c} - 1 = 0
+                        
+                \end{aligned}
+                \right.$$
+                より，
+                $$p_c = \frac{\dis{\sum_{d \in D}} P(c|d; \theta')}{\dis{\sum_c} \dis{\sum_{d \in D}} P(c|d; \theta')}$$
+                $$p_c = \frac{\dis{\sum_{d \in D}} P(c|d; \theta') n_{w, d}}{\dis{\sum_w} \dis{\sum_{d \in D}} P(c|d; \theta') n_{w, d}}$$
+                となる。
+            </p>
         </div>
 
         <div class="def " id="5">
@@ -327,7 +351,36 @@
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <p>$Q$関数は次のようになる。</p>
+            <p>$$Q(\theta; \theta') = \sum_{x, y} n_{x, y} \sum_{c, d} P(c|x, y; \theta') \log q_{x, c} \; r_{y, c} \; p_{c, d}$$</p>
+            <p>Eステップは，
+                $$P(c, d|x, y; \theta') = \frac{q'_{x, c} \; r'_{y, c} \; p'_{c, d}}{\dis{\sum_c} q'_{x, c} \; r'_{y, c} \; p'_{c, d}}$$
+                となる。
+            </p>
+            <p>Mステップで最大化するにあたり，ラグランジュ関数$L(\theta, \lambda_1, \lambda_2, \lambda_3)$を
+                $$\begin{align*} L(\theta, \lambda_1, \lambda_2, \lambda_3) &= Q(\theta; \theta') + \sum_c \lambda_1 \left(\sum_x q_{x, c} - 1 \right) + \sum_c \lambda_2 \left(\sum_y q_{y, c} - 1 \right) + \lambda_3 \left(\sum_c p_{c, d} - 1 \right)  
+                \end{align*}$$
+                とおく。
+            </p>
+            <p>よって，ラグランジュ関数をそれぞれの変数で偏微分した結果が0と等しいものとして，等式を作り，それらの連立方程式を解くことで，最大値が求められるから，
+                $$
+                \left\{ \,
+                    \begin{aligned}
+                    
+                & \frac{\partial L(\theta, \lambda_1, \lambda_2, \lambda_3)}{\partial q_{x, c}} = \sum_y n_{x, y} P(c, d|x, y; \theta') \frac{1}{q_{x, c}} + \lambda_1 = 0 \\
+                & \frac{\partial L(\theta, \lambda_1, \lambda_2, \lambda_3)}{\partial \lambda_1} = \sum_x q_{x, c} - 1 = 0
+                
+                \end{aligned}
+                \right.
+                $$
+                より，
+                $$q_{x, c} = \frac{\dis{\sum_y} n_{x,y} P(c, d|x, y; \theta') }{\dis{\sum_x \sum_y} n_{x, y} P(c, d|x, y; \theta')}$$
+                となる。
+            </p>
+            <p>同様にして，
+                $$r_{y, c} = \frac{\dis{\sum_x} n_{x,y} P(c, d|x, y; \theta') }{\dis{\sum_y \sum_x} n_{x, y} P(c, d|x, y; \theta')}$$
+                $$p_{c, d} = \frac{\dis{\sum_{x, y}} n_{x,y} P(c, d|x, y; \theta') }{\dis{\sum_c \sum_{x,y}} n_{x, y} P(c, d|x, y; \theta')}$$
+            </p>
         </div>
 
 
