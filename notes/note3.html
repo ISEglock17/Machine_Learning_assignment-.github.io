@@ -168,11 +168,53 @@
             <p>データ$D = \{x^{(1)}, x^{(2)}, \cdots , x^{(|D|)}\}$が与えられたとして，EMアルゴリズムにおけるEステップとMステップを求めよ。</p>
         </div>
 
+        <div class="th">
+            <span class="th-t">
+                <h5>方針</h5>
+            </span>
+            <p>$Q$関数は次のように表される。</p>
+            <p>$$Q(\theta; \theta') = \sum_{\boldsymbol{x}^{(i)} \in D} \sum_c P(c|\boldsymbol{x}^{(i)}; \theta') \log P(c, \boldsymbol{x}^{(i)}; \theta)$$</p>
+            <p>また，EMアルゴリズムは収束するまで，次のステップを繰り返す。</p>
+            <br>
+            <p>Eステップ: 任意の$\boldsymbol{x}^{(i)} \in D$，任意の$c$について，$P(c|\boldsymbol{x}^{(i)}; \theta')$を計算</p>
+            <p>Mステップ: $\theta^{max} = \mathrm{arg}\underset{\theta}{\max} Q(\theta; \theta')$</p>
+            <p>$\theta' = \theta^{max}$</p>
+        </div>
+
         <div class="ans">
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <div class="flex">
+                <div class="text" style="width: 60%;">
+                    <p>まず$Q$関数は，
+                        $$Q(\mu, p; \mu', p') = \sum_{x^{(i)}\in D} \sum_c P(c|x^{(i)}; \mu_c', p'_c) \log p_c \frac{\mu_c^{x(i)}}{x^{(i)}!} e^{-\mu_c}$$
+                        となる。
+                    </p>
+                    <p>Eステップは，
+                        $$\begin{align*} P(c|x^{(i)}; \mu'_c, p'_c) &= \cfrac{p'_c \cfrac{\mu{'x^{(i)}}_c}{x^{(i)}!} e^{-\mu'_c}}{\dis{\sum_c} p'_c\cfrac{\mu^{'x^{(i)}}_c}{x!} e^{-\mu'_c}} \\
+                            &= \cfrac{p'_c \mu^{'x}_c e^{-\mu'_c} }{\dis{\sum_c} p'_c \mu^{'x}_c e^{-\mu'_c}}
+                        \end{align*}$$
+                    </p>
+                    <p>Mステップにおいては，$Q$関数を最大化する$\mu_c$を求めればよいから，$\mu_c$で偏微分して，
+                        $$\begin{align*}\frac{\partial Q(\mu_c, p_c; \mu'_c, p'_c)}{\partial \mu_c} &= \sum_{x^{(i)}\in D} P(c|x^{(i)}; \mu'_c, p'_c) \left(\frac{x^{(i)}}{\mu_c} - 1\right) \\
+                        &= \frac{1}{\mu_c} \sum_{x^{(i)}\in D} P(c|x^{(i)}; \mu'_c, p'_c)x^{(i)} - \sum_{x^{(i)} \in D} P(c|x^{(i)}; \mu'_c, p'_c) \end{align*}$$
+                    </p>
+                    <p>よって，この式が0と等しくなる$\mu_c$を求めると，
+                        $$\mu_c = \frac{\dis{\sum_{x^{(i)}\in D}} P(c|x^{(i)})x^{(i)}}{\dis{\sum_{x^{(i)}\in D}} P(c|x^{(i)})}$$
+                    </p>
+                </div>
+                <div class="caption" style="width: 40%;">
+                    <p>$Q$関数における対数尤度の部分は，任意のデータの事例$x^{(i)}$において，クラスタ$c$に属している確率とポアソン分布の積の対数となる。</p>
+                    <p>Eステップの式変形解説</p>
+                    <p>$$
+                        \begin{align*} P(c|\boldsymbol{x}^{(i)}) &= \frac{P(\boldsymbol{x}^{(i)}, c)}{P(\boldsymbol{x}^{(i)})} \\
+                        &= \frac{P(c, \boldsymbol{x}^{(i)})}{\dis{\sum_c}P(c, \boldsymbol{x}^{(i)})} \\
+                        &= \frac{P(c)P(\boldsymbol{x}^{(i)}|c)}{\dis{\sum_c} P(c)P(\boldsymbol{x}^{(i)}|c)}\end{align*}$$</p>
+                    <p>Mステップの偏微分解説</p>
+                    <p>$\log p_c \cfrac{\mu_c^{x^{(i)}}}{x^{(i)}!} e^{-\mu_c} = \log \cfrac{p_c}{x^{(i)}!} \mu_c^{x^{(i)}} - \mu_c$</p>
+                </div>
+            </div>
         </div>
 
         <div class="def " id="3.4">
