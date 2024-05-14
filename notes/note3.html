@@ -360,7 +360,7 @@
             <p>$Q$関数は次のようになる。</p>
             <p>$$Q(\theta; \theta') = \sum_{x, y} n_{x, y} \sum_{c, d} P(c|x, y; \theta') \log q_{x, c} \; r_{y, c} \; p_{c, d}$$</p>
             <p>Eステップは，
-                $$P(c, d|x, y; \theta') = \frac{q'_{x, c} \; r'_{y, c} \; p'_{c, d}}{\dis{\sum_c} q'_{x, c} \; r'_{y, c} \; p'_{c, d}}$$
+                $$P(c, d|x, y; \theta') = \frac{q'_{x, c} \; r'_{y, d} \; p'_{c, d}}{\dis{\sum_{c, d}} q'_{x, c} \; r'_{y, d} \; p'_{c, d}}$$
                 となる。
             </p>
             <p>Mステップで最大化するにあたり，ラグランジュ関数$L(\theta, \lambda_1, \lambda_2, \lambda_3)$を
