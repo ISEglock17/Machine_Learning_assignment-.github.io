@@ -119,7 +119,7 @@
         <h3>教科書</h3>
         <div class="def " id="4--2">
             <span class="def-t ">
-                <h4>4.2.1 [2] 多変数ベルヌーイモデルのパラメータの最尤推定</h4>
+                <h4>4.2.1 [2] 多変数ベルヌーイモデルのパラメータの最尤推定(p. 103)</h4>
             </span>
             <p>最尤推定を用い，与えられたデータからパラメータをどのように推定するかを説明せよ。</p>
         </div>
@@ -157,7 +157,7 @@
 
         <div class="def " id="4--3">
             <span class="def-t ">
-                <h4>4.2.1 [3] 多変数ベルヌーイモデルのパラメータのMAP推定</h4>
+                <h4>4.2.1 [3] 多変数ベルヌーイモデルのパラメータのMAP推定(p. 107)</h4>
             </span>
             <p>MAP推定を用い，与えられたデータからパラメータをどのように推定するかを説明せよ。</p>
         </div>
@@ -166,7 +166,29 @@
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <p>MAP推定を行うにあたって，ディリクレ分布を事前分布に用いることにして，目的関数となるものを計算すると，
+                $$\begin{align*} 
+                    \log P(\theta) + \log P(D) &= \log \left(\prod _c p_c^{\alpha - 1} \right) \times \left(\prod_{w, c} \left(p_{w, c}^{\alpha - 1} (1 - p_{w, c})^{\alpha - 1} \right)\right) + \sum_{(d, c) \in D} \log P(d|c) + \mathrm{const.} \\
+                    &= (\alpha - 1)\sum_c \log p_c + (\alpha - 1)\sum_{w, c}\left(\log p_{w, c} + \log(1 - p_{w, c}) \right) \\ &\qquad \qquad \qquad \qquad  + \sum_{(d, c) \in D} \log \left(p_c \prod_{w \in V} \left(p_{w, c}^{\delta_{w, c}}(1 - p_{w, c})^{1 - \delta_{w, d}} \right) \right) + \mathrm{const.}
+                \end{align*}$$
+                となる。
+            </p>
+            <p>したがって，これを最大化するから，ラグランジュの未定乗数法を用いる。</p>
+            <p>ラグランジュ関数$L(\theta, \lambda)$は，
+                $$L(\theta, \lambda) = \log P(\theta) + \log P(D) + \lambda \left(\sum_c p_c - 1 \right)$$
+                となる。
+            </p>
+            <p>よって，このラグランジュ関数を各変数で偏微分して，それぞれの式が0と等しいものとして，連立方程式を解くことで最大化できるから，ラグランジュ関数を各変数で偏微分して，
+                $$\frac{\partial L(\theta, \lambda)}{\partial p_{w, c}} = \frac{\alpha - 1}{p_{w, c}} + \frac{\alpha - 1}{1 - p_{w, c}} + \frac{N_{w, c}}{p_{w, c}} - \frac{N_c - N_{w, c}}{1 - p_{w, c}} = 0$$
+                $$\frac{\partial L(\theta, \lambda)}{\partial p_c} = \frac{\alpha - 1}{p_c} + \frac{N_c}{p_c} + \lambda = 0$$
+                $$\frac{\partial L(\theta, \lambda)}{\partial \lambda} = \sum_c p_c - 1 = 0$$
+                となる。
+            </p>
+            <p>したがって，これらを解くと，
+                $$p_{w, c} = \frac{N_{w, c} + \alpha - 1}{N_c + 2(\alpha - 1)}$$
+                $$p_c = \frac{N_c + \alpha - 1}{\dis{\sum_c} N_c + |C| (\alpha - 1)}\qquad (|C|\text{はクラス数を示す})$$
+                となる。
+            </p>
         </div>
         <p style="text-align:right;"><a href="#top" class="btn-square-slant ">↑トップに戻る</a></p>
 
@@ -182,38 +204,100 @@
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <p>ポアソン分布に従うことから，$P(d|c)$は，
+                $$\begin{align*}
+                P(d|c) &= \frac{\mu_c^{\dis{\sum_w} n_{w, d}}}{\left(\dis{\sum_w} n_{w, d} \right)!} e^{- \mu_c} \frac{\left(\dis{\sum_w}n_{w, d} \right)!}{\dis{\prod_{w \in V}} n_{w, d}!} \prod_{w \in V} q_{w, c}^{n_{w, d}} \\
+                &= \mu_c^{\dis{\sum_w} n_{w, d}} e^{-\mu_c} \frac{1}{\dis{\prod_{w \in V}} n_{w, d}!} \prod_{w\in V} q_{w, c}^{n_{w, d}}
+                \end{align*}$$
+                となる。
+            </p>
+            <p>ここで，対数尤度は，
+                $$\log P(D) = \sum_{(d, c) \in D} \left(\sum_w n_{w, d} \right) \log \mu_c - \sum_{(d, c)\in D} \mu_c + \log \frac{1}{\dis{\prod_{w \in V}} n_{w, d}!} \prod_{w\in V} q_{w, c}^{n_{w, d}}$$
+                となる。
+            </p>
+            <p>したがって，この対数尤度を偏微分すると，$D_c$をクラスが$c$である訓練事例の集合であるものとして，
+                $$\begin{align*}
+                    \frac{\partial \log P(D)}{\partial \mu_c} &= \sum_{d\in D_c} \left(\sum_w n_{w, d} \right) \frac{1}{\mu_c} - N_c \\
+                    &= \frac{1}{\mu_c} \sum_{d \in D_c} \left(\sum_w n_{w, d} \right) - N_c
+                \end{align*}$$
+                となる。
+            </p>
+            <p>よって，これが0と等しいとき，最大値が得られるから，
+                $$\mu_c = \frac{\dis{\sum_{d \in D_c}}\left(\dis{\sum_w} n_{w, d} \right) }{N_c}$$
+            </p>
         </div>
         <p style="text-align:right;"><a href="#top" class="btn-square-slant ">↑トップに戻る</a></p>
 
         <h3>教科書</h3>
         <div class="def " id="4-2--2">
             <span class="def-t ">
-                <h4>4.2.2 [2] 多項モデルのパラメータの最尤推定</h4>
+                <h4>4.2.2 [2] 多項モデルのパラメータの最尤推定(p. 112)</h4>
             </span>
-            
+            <p>多項モデルについて，与えられたデータに対する最尤推定によりパラメータをどのように推定するかを説明せよ。</p>
         </div>
 
         <div class="ans">
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <p>最尤推定を行う際に最大化する目的関数は，
+                $$\begin{align*} 
+                    \log P(D) &= \sum_{(d, c) \in D} \log P(d,c) \\ 
+                    &= \sum_{(d, c) \in D} \log \left( p_c \frac{P(|d|) |d|!}{\dis{\prod_{w \in V}} n_{w, d}!} \prod_{w \in V} q_{w, c}^{n_{w, d}} \right) \\
+                    &= \sum_{(d, c) \in D} \log  \frac{P(|d|) |d|!}{\dis{\prod_{w \in V}} n_{w, d}!} + \sum_{(d, c) \in D} \log p_c + \sum_{(d, c) \in D} \sum_{w \in V} n_{w, d} \log q_{w, c} \\
+                    &= \sum_{(d, c) \in D} \log  \frac{P(|d|) |d|!}{\dis{\prod_{w \in V}} n_{w, d}!} + \sum_{c} N_c \log p_c + \sum_{c} \sum_{w \in V} n_{w, c} \log q_{w, c} 
+                \end{align*}$$
+                となる。
+            </p>
+            <p>したがって，これを最大化するため，ラグランジュ関数$L(\theta, \boldsymbol{\lambda_1}, \lambda_2)$を定義すると，
+                $$L(\theta, \boldsymbol{\lambda_1}, \lambda_2) = \log P(D) + \sum_{c \in C} \lambda_{1c} \left(\sum_{w \in V} q_{w, c} - 1 \right) + \lambda_2 \left(\sum_{c \in C} p_c - 1 \right)$$
+            </p>
+            <p>よって，これを偏微分して，0と等しいものとすると，
+                $$\frac{\partial L(\theta, \boldsymbol{\lambda_1}, \lambda_2)}{\partial q_{w, c}} = \frac{n_{w, c}}{q_{w, c}} + \lambda_{1c} = 0$$
+                $$\frac{\partial L(\theta, \boldsymbol{\lambda_1}, \lambda_2)}{\partial p_c} = \frac{N_c}{p_c} + \lambda_{2} = 0$$
+                $$\frac{\partial L(\theta, \boldsymbol{\lambda_1}, \lambda_2)}{\partial \lambda_1} = \sum_{w \in V} q_{w, c} - 1 = 0$$
+                $$\frac{\partial L(\theta, \boldsymbol{\lambda_1}, \lambda_2)}{\partial \lambda_2} = \sum_{c \in C} p_c - 1 = 0$$
+                となる。
+            </p>
+            <p>この連立方程式を解くと，
+                $$q_{w, c} = \frac{n_{w, c}}{\dis{\sum_{w}} n_{w, c}}$$
+                $$p_c = \frac{N_c}{\dis{\sum_c} N_c}$$
+            </p>
         </div>
         <p style="text-align:right;"><a href="#top" class="btn-square-slant ">↑トップに戻る</a></p>
 
         <div class="def " id="4-2--3">
             <span class="def-t ">
-                <h4>4.2.2 [3] 多項モデルのパラメータのMAP推定</h4>
+                <h4>4.2.2 [3] 多項モデルのパラメータのMAP推定(p. 115)</h4>
             </span>
-            
+            <p>ディリクレ分布を事前分布として用いた上で，多項モデルにおけるMAP推定を行うとどのようになるか説明せよ。</p>
         </div>
 
         <div class="ans">
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <p>MAP推定を用いて最大化する際の目的関数は，
+                $$\begin{align*}
+                    \log P(\theta) + \log P(D) &= \log \left(\prod_c p_c^{\alpha - 1} \right) \times \left(\prod_{w, c} q_{w, c}^{\alpha - 1}\right) + \sum_{(d, c) \in D} \log P(d, c) + \mathrm{const.} \\
+                    &= (\alpha - 1)\left(\sum_c \log p_c + \sum_{w, c} \log q_{w, c}\right) + \sum_{(d, c) \in D} \log \left( p_c \frac{P(|d|) |d|!}{\dis{\prod_{w \in V}} n_{w, d}!} \prod_{w \in V} q_{w, c}^{n_{w, d}}  \right) 
+                    \\ & \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad  + \mathrm{const.}
+                \end{align*}$$
+            </p>
+            <p>したがって，これを最大化するため，ラグランジュ関数$L(\theta, \boldsymbol{\lambda_1}, \lambda_2)$を定義すると，
+                $$L(\theta, \boldsymbol{\lambda_1}, \lambda_2) = \log P(\theta) + \log P(D) + \sum_{c \in C} \lambda_{1c} \left(\sum_{w \in V} q_{w, c} - 1 \right) + \lambda_2 \left(\sum_{c \in C} p_c - 1 \right)$$
+            </p>
+            <p>よって，これを偏微分して，0と等しいものとすると，
+                $$\frac{\partial L(\theta, \boldsymbol{\lambda_1}, \lambda_2)}{\partial q_{w, c}} = \frac{\alpha - 1}{q_{w, c}} + \frac{n_{w, c}}{q_{w, c}} + \lambda_{1c} = 0$$
+                $$\frac{\partial L(\theta, \boldsymbol{\lambda_1}, \lambda_2)}{\partial p_c} = \frac{\alpha - 1}{p_c} + \frac{N_c}{p_c} + \lambda_{2} = 0$$
+                $$\frac{\partial L(\theta, \boldsymbol{\lambda_1}, \lambda_2)}{\partial \lambda_{1c}} = \sum_{w \in V} q_{w, c} - 1 = 0$$
+                $$\frac{\partial L(\theta, \boldsymbol{\lambda_1}, \lambda_2)}{\partial \lambda_2} = \sum_{c \in C} p_c - 1 = 0$$
+                となる。
+            </p>
+            <p>この連立方程式を解くと，
+                $$q_{w, c} = \frac{n_{w, c} + \alpha - 1}{\dis{\sum_{w}} n_{w, c} + |W| (\alpha - 1)}$$
+                $$p_c = \frac{N_c + \alpha - 1}{\dis{\sum_c} N_c + |C|(\alpha - 1)}$$
+            </p>
         </div>
         <p style="text-align:right;"><a href="#top" class="btn-square-slant ">↑トップに戻る</a></p>
 
@@ -229,7 +313,22 @@
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <p>$P(d|c)$は，
+                $$P(d|c) = \prod_w \frac{\mu_{w, c}^{n_{w, d}}}{n_{w, d}!} e^{-\mu_{w, c}}$$
+            となる。</p>
+            <p>対数尤度は，
+                $$\begin{align*}
+                    \log P(D) &= \sum_{d\in D} \log p_c P\left(\sum_w n_{w, d} \right) \prod_w \frac{\mu_{w, c}^{n_{w, d}}}{n_{w, d}!} e^{-\mu_{w, c}} \\
+                    &= \sum_{d\in D} \log p_c P\left(\sum_w n_{w, d} \right) + \sum_c sum_w n_{w, c} - \sum_c N_c \sum_w \mu_{w, c} - \sum_c N_c \sum_w \log n_{w, c}!
+                \end{align*}$$
+                となる。
+            </p>
+            <p>これを$\mu_{w, c}$で偏微分して，
+                $$\frac{\partial \log P(D)}{\partial \mu_{w, c}} = \frac{n_{w, c}}{\mu_{w, c}} - N_c$$
+                となるから，これが0と等しいとき，最大値を取るので，
+                $$\mu_{w, c} = \frac{n_{w, c}}{N_c}$$
+            </p>
+
         </div>
         <p style="text-align:right;"><a href="#top" class="btn-square-slant ">↑トップに戻る</a></p>
 
