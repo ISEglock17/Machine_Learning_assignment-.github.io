@@ -314,12 +314,12 @@
                 <h5>解答</h5>
             </span>
             <p>$P(d|c)$は，
-                $$P(d|c) = \prod_w \frac{\mu_{w, c}^{n_{w, d}}}{n_{w, d}!} e^{-\mu_{w, c}}$$
+                $$P(d|c) = P\left(\sum_w n_{w, d}\right)\prod_w \frac{\mu_{w, c}^{n_{w, d}}}{n_{w, d}!} e^{-\mu_{w, c}}$$
             となる。</p>
             <p>対数尤度は，
                 $$\begin{align*}
                     \log P(D) &= \sum_{d\in D} \log p_c P\left(\sum_w n_{w, d} \right) \prod_w \frac{\mu_{w, c}^{n_{w, d}}}{n_{w, d}!} e^{-\mu_{w, c}} \\
-                    &= \sum_{d\in D} \log p_c P\left(\sum_w n_{w, d} \right) + \sum_c sum_w n_{w, c} - \sum_c N_c \sum_w \mu_{w, c} - \sum_c N_c \sum_w \log n_{w, c}!
+                    &= \sum_{d\in D} \log p_c P\left(\sum_w n_{w, d} \right) + \sum_c \sum_w n_{w, c}\log \mu_{w, c} - \sum_c N_c \sum_w \mu_{w, c} - \sum_c N_c \sum_w \log n_{w, c}!
                 \end{align*}$$
                 となる。
             </p>
