@@ -420,14 +420,59 @@
             <span class="def-t ">
                 <h4>4.5.2 対数線形モデルの更新式の導出</h4>
             </span>
-            
+            <p>対数線形モデルにおける目的関数を考え，目的関数に対して最急勾配法を用いた際の更新式を導出せよ。</p>
+        </div>
+
+        <div class="th">
+            <span class="th-t">
+                <h5>方針</h5>
+            </span>
+            <p>対数線形モデルについて軽くおさらいする。</p>
+            <p>まず，<em>素性関数(feature function)</em>$\phi_k$を定義する。
+            これは，事例$d$とラベル$y$を引数にとって，素性値$\phi_k(d, y)$を返すものであり，これを並べた$\boldsymbol{\phi}(d, y)$を素性ベクトルとする。</p>
+            <p>次に，分類器として求めたい$P(y|d)$を表すにあたって，素性に対する重みベクトル$\boldsymbol{w}$，$\dis{\sum_y P(y|d) = 1}$を保証する係数$Z_{d, w} = \dis{\sum_y \exp(\boldsymbol{w} \cdot \boldsymbol{\phi}(d, y))}$を定義すると，$P(y|d)$は次のように表される。</p>
+            <p>$$\begin{align*}
+                    P(y|d) &= \frac{1}{Z_{d, w}} \exp(\boldsymbol{w}\cdot \boldsymbol{\phi}(d, y)) \\
+                    &= \frac{\exp(\boldsymbol{w}\cdot \boldsymbol{\phi}(d, y))}{\dis{\sum_y \exp(\boldsymbol{w} \cdot \boldsymbol{\phi}(d, y))}} 
+                \end{align*}$$</p>
         </div>
 
         <div class="ans">
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <p>方針の続きを本問題の解答とする。</p>
+            <p>訓練データ$D$が与えられた際に，パラメータ推定を行うこととすると，$P(y|d)$の対数尤度は，
+                $$\begin{align*} 
+                    \log P_{\mathrm{cond}}(D) &= \sum_{(d^{(i)}, y^{(i)}) \in D} \log P(y^{(i)}| d^{(i)}) \\
+                    &= \sum_{(d^{(i)}, y^{(i)}) \in D} \log \frac{1}{Z_{d, w}} \exp(\boldsymbol{w}\cdot \boldsymbol{\phi}(d^{(i)}, y^{(i)})) \\
+                    &= \sum_{(d^{(i)}, y^{(i)}) \in D} (\log \exp(\boldsymbol{w}\cdot \boldsymbol{\phi}(d^{(i)}, y^{(i)})) - \log Z_{d^{(i)}, \boldsymbol{w}} ) \\
+                    &= \sum_{(d^{(i)}, y^{(i)}) \in D} (\boldsymbol{w}\cdot \boldsymbol{\phi}(d^{(i)}, y^{(i)}) - \log Z_{d^{(i)}, \boldsymbol{w}} ) \\
+                    &= \sum_{(d^{(i)}, y^{(i)}) \in D} \left(\boldsymbol{w}\cdot \boldsymbol{\phi}(d^{(i)}, y^{(i)}) - \log \sum_y \exp(\boldsymbol{w} \cdot \boldsymbol{\phi}(d^{(i)}, y)) \right)
+                \end{align*}$$
+                と表される。
+            </p>
+            <p>ただし，これを目的関数にすると，あるクラスだけに出現した素性に対する重みが無限大になることから，正規化を行い，次のような目的関数が得られる。</p>
+            <p>$$L(\boldsymbol{w}) =  \sum_{(d^{(i)}, y^{(i)}) \in D}  \log P(y^{(i)} | d^{(i)}) - \frac{C}{2} |\boldsymbol{w}|^2 $$</p>
+            <p>ただし，この目的関数は解析的に最大化できないことから，最大化されるパラメータ$\boldsymbol{w}$を求めるにあたって，最急勾配法を用いて，更新式を繰り返すことで収束に導く手法を用いることとする。</p>
+            <p>このとき，最急勾配法における更新式は，
+                $$\boldsymbol{w}^{new} = \boldsymbol{w}^{old} + \epsilon \nabla_w L(\boldsymbol{w}^{old})$$
+                と表されるから，今回の$L(\boldsymbol{w})$に対応する$\nabla_w L(\boldsymbol{w})$を求めると，
+                $$\begin{align*}
+                    \nabla_w L(\boldsymbol{w}) &= \frac{\partial}{\partial \boldsymbol{w}} \left( \sum_{(d^{(i)}, y^{(i)}) \in D}  \log P(y^{(i)} | d^{(i)}) - \frac{C}{2} |\boldsymbol{w}|^2  \right) \\
+                    &=  \frac{\partial}{\partial \boldsymbol{w}} \left( \sum_{(d^{(i)}, y^{(i)}) \in D}  \left( \boldsymbol{w}\cdot \boldsymbol{\phi}(d^{(i)}, y^{(i)}) - \log \sum_y \exp(\boldsymbol{w} \cdot \boldsymbol{\phi}(d^{(i)}, y)) \right) - \frac{C}{2} |\boldsymbol{w}|^2  \right) \\
+                    &=  \sum_{(d^{(i)}, y^{(i)}) \in D}  \left(  \boldsymbol{\phi}(d^{(i)}, y^{(i)}) -  \frac{\sum_y  \boldsymbol{\phi}(d^{(i)}, y) \exp(\boldsymbol{w} \cdot \boldsymbol{\phi}(d^{(i)}, y))}{\sum_y \exp(\boldsymbol{w} \cdot \boldsymbol{\phi}(d^{(i)}, y))} \right) - \frac{C}{2} |\boldsymbol{w}|^2  \\
+                    &=  \sum_{(d^{(i)}, y^{(i)}) \in D}  \left(  \boldsymbol{\phi}(d^{(i)}, y^{(i)}) - \sum_y P(y|d^{(i)}) \boldsymbol{\phi}(d^{(i)}, y)  \right) - C \boldsymbol{w}  
+                \end{align*}$$
+                となる。
+            </p>
+            <p>したがって，更新式は，
+                $$\begin{align*}
+                    \boldsymbol{w}^{new} &= \boldsymbol{w}^{old} + \epsilon \nabla_w L(\boldsymbol{w}^{old}) \\
+                    &= \boldsymbol{w}^{old} + \epsilon \sum_{(d^{(i)}, y^{(i)}) \in D}  \left(  \boldsymbol{\phi}(d^{(i)}, y^{(i)}) - \sum_y P(y|d^{(i)}) \boldsymbol{\phi}(d^{(i)}, y)  \right) - \epsilon C \boldsymbol{w} 
+                \end{align*}$$
+                となる。
+            </p>
         </div>
         <p style="text-align:right;"><a href="#top" class="btn-square-slant ">↑トップに戻る</a></p>
 
