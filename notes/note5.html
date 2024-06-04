@@ -40,6 +40,10 @@
                     R: "{\\mathbb{R}}",
                     min: "{\\mathrm{min}}",
                     tx: "{\\tilde{x}}",
+                    bx:["{\\boldsymbol{x}^{(#1)}}", 1],
+                    by:["{\\boldsymbol{y}^{(#1)}}", 1],
+                    xx:["{{x}_{#1}^{(#2)}}", 2],
+                    yy:["{{y}_{#1}^{(#2)}}", 2],
                 },
             },
             tex2jax: {
@@ -94,7 +98,25 @@
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <p>教科書p.149 5.2.2 パラメータ推定の続きをここでは記述することにする。</p>
+            <p>制約条件である，$\dis{\sum_x p_{x|y}} = 1,\; \dis{\sum_y q_{y|y'}} = 1$をもとに，ラグランジュ関数$L(\theta,\; \bm{\lambda_1},\; \bm{\lambda_2})$を定義すると，
+                $$\begin{align*} 
+                    L(\theta, \bm{\lambda_1}, \bm{\lambda_2}) &= \sum_{x, y} n((x,y), D) \log p_{x|y} + \sum_{y, y'} n((y', y), D) \log q_{y|y'} \\
+                    &\qquad \qquad + \sum_y \lambda_{1y} \left(\sum_x p_{x|y} - 1 \right) + \sum_{y'} \lambda_{2y'} \left(\sum_y q_{y|y'} - 1 \right)
+                \end{align*}$$
+                となる。
+            </p>
+            <p>したがって，ラグランジュ関数を各変数において偏微分すると，
+                $$\frac{\partial L(\theta, \bm{\lambda_1}, \bm{\lambda_2})}{\partial p_{x|y}} = \frac{n((x, y), D)}{p_{x|y}} + \lambda_{1y}$$
+                $$\frac{\partial L(\theta, \bm{\lambda_1}, \bm{\lambda_2})}{\partial q_{y|y'}} = \frac{n((y', y), D)}{q_{y|y'}} + \lambda_{2y'}$$
+                $$\frac{\partial L(\theta, \bm{\lambda_1}, \bm{\lambda_2})}{\partial \bm{\lambda_1}} = \sum_x p_{x|y} - 1$$
+                $$\frac{\partial L(\theta, \bm{\lambda_1}, \bm{\lambda_2})}{\partial \bm{\lambda_2}} = \sum_y q_{y|y'} - 1$$
+                となる。
+            </p>
+            <p>よって，各式が0と等しいものとして，連立方程式を解くことで，最大化されるから，連立方程式を解くと，
+                $$p_{x|y} = \frac{n((x,y), D)}{\dis{\sum_x} n((x,y), D)}, \qquad q_{y|y'} = \frac{n((y',y), D)}{\dis{\sum_y} n((y',y), D)}$$
+                が求まる。
+            </p>
         </div>
 
         <div class="def ">
@@ -105,7 +127,7 @@
                 $$D = \{(\bm{x}^{(1)}, \bm{y}^{(1)}), (\bm{x}^{(2)}, \bm{y}^{(2)}), \cdots , (\bm{x}^{(|D|)}, \bm{y}^{(|D|)})\}$$
                 が与えられたとしよう。$P(x_i, y_i|x_{i - 1}, y_{i - 1}) = P(x_i | y_i)P(y_i | y_{i - 1})$でなく，
                 $$P(x_i, y_i|x_{i - 1}, y_{i - 1}) = P(x_i | y_i, y_{i - 1}) P(y_i| y_{i - 1})$$
-                が成り立つと仮定したとき，最尤推定でパラメータを求めよ。ただし，パラメータあ$r_{x|y, y'} = P(x|y, y')$および$q_{y| y'} = P(y | y')$である。
+                が成り立つと仮定したとき，最尤推定でパラメータを求めよ。ただし，パラメータは$r_{x|y, y'} = P(x|y, y')$および$q_{y| y'} = P(y | y')$である。
             </p>           
         </div>
 
@@ -113,21 +135,84 @@
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <p>問題文のように仮定した場合，対数尤度は，次のようになる。</p>
+            <p>$$\begin{align*} 
+                    \log P(D) &= \sum_{(\bx{i}, \by{i}) \in D} \log P(\bx{i}, \by{i}) \\
+                    &= \sum_{(\bx{i}, \by{i}) \in D} \left(\sum_j \log P(\xx{j}{i}| \yy{j}{i}, \yy{j-1}{i}) + \sum_j \log P(\yy{j}{i}| \yy{j-1}{i}) \right) \\
+                    &= \sum_{x, y, y'} n((x, y, y'), D) \log r_{x|y, y'} + \sum_{y, y'} n((y, y'), D) \log q_{y|y'}
+                \end{align*}$$
+            </p>
+            <p>ただし，$n((x, y, y'), D)$はデータ$D$において$x$にラベル$y$が付き，さらに直前のラベルが$y'$となっている回数を示すものとする。</p>
+            <p>このとき，ラグランジュ関数は，
+                $$\begin{align*} 
+                L(\theta, \bm{\lambda_1}, \bm{\lambda_2}) &= \sum_{x, y} n((x, y, y'), D) \log r_{x|y, y'} + \sum_{y, y'} n((y', y), D) \log q_{y|y'} \\
+                &\qquad \qquad + \sum_y \lambda_{1\; y, y'} \left(\sum_x r_{x|y, y'} - 1 \right) + \sum_{y'} \lambda_{2y'} \left(\sum_y q_{y|y'} - 1 \right)
+            \end{align*}$$
+            となる。
+            </p>
+            <p>したがって，ラグランジュ関数を各変数において偏微分すると，
+                $$\frac{\partial L(\theta, \bm{\lambda_1}, \bm{\lambda_2})}{\partial r_{x|y, y'}} = \frac{n((x, y, y'), D)}{r_{x|y, y'}} + \lambda_{1\; y, y'}$$
+                $$\frac{\partial L(\theta, \bm{\lambda_1}, \bm{\lambda_2})}{\partial q_{y|y'}} = \frac{n((y', y), D)}{q_{y|y'}} + \lambda_{2y'}$$
+                $$\frac{\partial L(\theta, \bm{\lambda_1}, \bm{\lambda_2})}{\partial \bm{\lambda_1}} = \sum_x r_{x|y, y'} - 1$$
+                $$\frac{\partial L(\theta, \bm{\lambda_1}, \bm{\lambda_2})}{\partial \bm{\lambda_2}} = \sum_y q_{y|y'} - 1$$
+            </p>
+            <p>よって，各式が0と等しいものとして，連立方程式を解くと，
+                $$r_{x|y, y'} = \frac{n((x, y, y'), D)}{\dis{\sum_x} n((x, y, y'), D)},\qquad q_{y|y'} = \frac{n((y', y), D)}{\dis{\sum_y} n((y', y), D)}$$
+                が求まる。
+            </p>
         </div>
 
         <div class="def ">
             <span class="def-t ">
-                <h4>5.4.2 条件付き確率場の学習($\beta(y_{t}, t)$の導出まで)</h4>
+                <h4>5.4.2 条件付き確率場の学習($\beta(y_{t}, t)$の導出まで) (教科書p.154)</h4>
             </span>
-            
+            <p>CRFにおける$\bm{w}$の学習方法を説明せよ。</p>          
         </div>
 
         <div class="ans">
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <p>まず，目的関数は，
+                $$L(\bm{w}) = \sum_{(\bx{i}, by{i}) \in D} \log P(\by{i} | \bx{i})$$
+                となる。
+            </p>
+            <p>今回は，正規化を行う項は省くものとして，最急勾配法を用いて最大化することを試みる。</p>
+            <p>このとき，
+                $$\begin{align*} 
+                    \bm{w}^{new} &= \bm{w}^{old} + \epsilon \nabla_\bm{w} L(\bm{w}^{old}) \\
+                    &= \bm{w}^{old} + \epsilon \sum_{(\bx{i}, by{i}) \in D} \left(\phi(\bx{i}, \by{i}) - \sum_{\bm{y}} P(\bm{y}| \bx{i}) \phi(\bx{i}, \bm{y}) \right)
+                \end{align*}$$
+            </p>
+            <p>ただし，ここでの，$\sum_{\bm{y}} P(\bm{y}| \bx{i}) \phi(\bx{i}, \bm{y})$は計算するべき$\bm{y}$の数が非常に大きいため，工夫して計算することにする。</p>
+            <p>ここで，
+                $$\begin{align*}
+                    \sum_{\bm{y}} P(\bm{y}| \bx{i}) \phi(\bx{i}, \bm{y}) &= \sum_{\bm{y}} P(\bm{y}| \bm{x}) \sum_t \phi(\bm{x}, y_t, y_{t - 1}) \\
+                    &= \sum_t \sum_{y_t, y_{t - 1}} P(y_{t - 1}, y_t| \bm{x}) \phi(\bm{x}, y_t, y_{t - 1})
+                \end{align*}$$
+                と変形することができるから，周辺確率$P(y_{y - 1}, y_t|\bm{x})$について考えることとする。</p>
+            <p>また，簡単のため，入力系統の長さを$T$として，各ラベル列$\bm{y}$に対しては，先頭$y_0 = \bm{B}$，末尾$y_{T + 1} = E$とダミーラベルを付加することにする。
+            </p>
+            <p>さらに，$\dis{\sum_{y_0, \cdots, y_{t-2}}}$を$\dis{\sum_{y_{0: t - 2}}}$と表記することにして，$\psi_t(y_t, y_{t - 1}) = \exp(\bm{w}\cdot \phi(\bm{x}, y_t, y_{t - 1}))$と表記することにする。</p>
+            <p>このとき，周辺確率は，
+                $$\begin{align*} 
+                    P(y_t, y_{t- 1}| \bm{x}) &= \sum_{\bm{y}_{0: t-2}} \sum_{\bm{y}_{t + 1:T + 1}} P(\bm{y}|\bm{x}) \\
+                    &= \frac{1}{Z_{\bm{x}, \bm{w}}} \sum_{\bm{y}_{0: t - 2}} \sum_{\bm{y}_{t + 1: T + 1}} \prod_{t'} \psi_{t'} (y_{t'}, y_{t' - 1}) \\
+                    &= \frac{\psi_t (y_t, y_{t - 1})}{Z_{\bm{x}, \bm{w}}} \sum_{\bm{y}_{0: t - 2}} \sum_{\bm{y}_{t + 1: T + 1}} \prod_{t' \neq t} \psi_{t'}(y_{t'}, y_{t' - 1}) \\
+                    &= \frac{\psi_t (y_t, y_{t - 1})}{Z_{\bm{x}, \bm{w}}} \left(\sum_{\bm{y}_{0: t - 2}}  \prod_{t' = 1}^{t - 1} \psi_{t'}(y_{t'}, y_{t' - 1}) \right) \left(\sum_{\bm{y}_{t + 1: T + 1}}  \prod_{t' = t + 1}^{T + 1} \psi_{t'}(y_{t'}, y_{t' - 1}) \right)
+                \end{align*}$$
+                と表せる。
+            </p>
+            <p>ここで，$\alpha(y_0, 0) = 1,\; \beta(y_{T + 1}, T + 1) = 1$，$\alpha(y_t, t) = \dis{\sum_{\bm{y}_{0: t - 2}}  \prod_{t' = 1}^{t - 1}} \psi_{t'}(y_{t'}, y_{t' - 1})$， $\beta(y_t, t) = \dis{\sum_{\bm{y}_{t + 1: T + 1}}  \prod_{t' = t + 1}^{T + 1}} \psi_{t'}(y_{t'}, y_{t' - 1}) $とおくと，</p>
+            <p>$$\begin{align*}
+                    \alpha(y_t, t) &= \dis{\sum_{\bm{y}_{0: t - 2}}  \prod_{t' = 1}^{t - 1}} \psi_{t'}(y_{t'}, y_{t' - 1}) \\
+                    &= \sum_{y_{t - 1}}\psi_t (y_t, y_{t - 1}) \sum_{\bm{y}_{0: t - 2}}\prod_{t' = 1}^{t - 1} \psi_{t'} (y_{t'}, y_{t' - 1}) \\
+                    &= \sum_{y_t - 1} \psi_t (y_t, y_{t - 1}) \alpha(y_{t - 1}, t - 1)
+                \end{align*}$$</p>
+            <p>同様に，
+                $$\beta(y_t, t) = \sum_{y_t + 1} \psi_{t + 1}(y_{t + 1}, y_t) \beta(y_{t+1}, t + 1) $$
+                が求まる。
+            </p>
         </div>
 
         <div class="def ">
@@ -137,11 +222,67 @@
             <p>例題5.1で与えられたデータを用い，CRFのための前向き後ろ向きアルゴリズムで用いる$\beta(y_t, t)$を求めよ。さらに，周辺確率$P(y_3, y_2|\bm{x})$を求めよ。</p>
         </div>
 
+        <div class="th">
+            <span class="th-t">
+                <h5>方針</h5>
+            </span>
+            <p>例題5.1で与えられたデータを再掲する。</p>
+            <p>
+                $$\psi_1(c_1, \bm{B}) = 1.0,\quad \psi_1(c_2, \bm{B}) = 1.0,$$
+                $$\psi_2(c_1, c_1) = 0.2,\quad \psi_2(c_1, c_2) = 0.3, \psi_2(c_2, c_1) = 0.1, \psi_2(c_2, c_2) = 0.1, $$
+                $$\psi_3(c_1, c_1) = 0.2,\quad \psi_3(c_1, c_2) = 0.2, \psi_3(c_2, c_1) = 0.1, \psi_3(c_2, c_2) = 0.1, $$
+                $$\psi_4(c_1, c_1) = 0.3,\quad \psi_4(c_1, c_2) = 0.1, \psi_4(c_2, c_1) = 0.2, \psi_4(c_2, c_2) = 0.1, $$
+                $$\psi_5(\bm{E}, c_1) = 1.0,\quad \psi_5(\bm{E}, c_2) = 1.0$$
+                このデータを用いて，
+                $$\beta(y_t, t) = \sum_{y_t + 1} \psi_{t + 1}(y_{t + 1}, y_t) \beta(y_{t+1}, t + 1) $$
+                に基づいて再帰的に解いていけばよい。
+            </p>
+        </div>
         <div class="ans">
             <span class="ans-t">
                 <h5>解答</h5>
             </span>
-           
+            <p>定義より，$\beta(\bm{E}, 5) = 1$である。</p>
+            <p>残りの$\beta$を次のように再帰的に求めると，
+                $$\beta(c_1, 4) = \psi_5(\bm{E}, c_1) \beta(\bm{E}, 5) = 1$$
+                $$\beta(c_2, 4) = \psi_5(\bm{E}, c_2) \beta(\bm{E}, 5) = 1$$
+
+                $$\begin{align*} \beta(c_1, 3) &= \sum_{y_4 \in \{c_1, c_2\}} \psi_4(\bm{E}, c_1) \beta(\bm{E}, 4) \\ 
+                &= \psi_4(\bm{E}, c_1) \beta(\bm{E}, 4) + \psi_4(\bm{E}, c_1) \beta(\bm{E}, 4) \\
+                &= 0.3 \times 1 + 0.2 \times 1 = 0.5 \end{align*}$$
+
+                $$\begin{align*} \beta(c_2, 3) &= \sum_{y_4 \in \{c_1, c_2\}} \psi_4(\bm{E}, c_2) \beta(\bm{E}, 4) \\ 
+                &= \psi_4(\bm{E}, c_2) \beta(\bm{E}, 4) + \psi_4(\bm{E}, c_2) \beta(\bm{E}, 4) \\
+                &= 0.1 \times 1 + 0.1 \times 1 = 0.2 \end{align*}$$
+
+                $$\begin{align*} \beta(c_1, 2) &= \sum_{y_3 \in \{c_1, c_2\}} \psi_3(\bm{E}, c_1) \beta(\bm{E}, 3) \\ 
+                &= \psi_3(\bm{E}, c_1) \beta(\bm{E}, 3) + \psi_3(\bm{E}, c_1) \beta(\bm{E}, 3) \\
+                &= 0.2 \times 0.5 + 0.1 \times 0.2 = 0.12 \end{align*}$$
+
+                $$\begin{align*} \beta(c_2, 2) &= \sum_{y_3 \in \{c_1, c_2\}} \psi_3(\bm{E}, c_2) \beta(\bm{E}, 3) \\ 
+                &= \psi_3(\bm{E}, c_2) \beta(\bm{E}, 3) + \psi_3(\bm{E}, c_2) \beta(\bm{E}, 3) \\
+                &= 0.2 \times 0.5 + 0.1 \times 0.2 = 0.12 \end{align*}$$
+
+                $$\begin{align*} \beta(c_1, 1) &= \sum_{y_2 \in \{c_1, c_2\}} \psi_2(\bm{E}, c_1) \beta(\bm{E}, 2) \\ 
+                &= \psi_2(\bm{E}, c_1) \beta(\bm{E}, 2) + \psi_2(\bm{E}, c_1) \beta(\bm{E}, 2) \\
+                &= 0.2 \times 0.12 + 0.1 \times 0.12 = 0.036 \end{align*}$$
+
+                $$\begin{align*} \beta(c_2, 1) &= \sum_{y_2 \in \{c_1, c_2\}} \psi_2(\bm{E}, c_2) \beta(\bm{E}, 2) \\ 
+                &= \psi_2(\bm{E}, c_2) \beta(\bm{E}, 2) + \psi_2(\bm{E}, c_2) \beta(\bm{E}, 2) \\
+                &= 0.3 \times 0.12 + 0.1 \times 0.12 = 0.048 \end{align*}$$
+
+                $$\begin{align*} \beta(\bm{B}, 0) &= \sum_{y_1 \in \{c_1, c_2\}} \psi_1(y_1, \bm{B}) \beta(y_1, 1) \\
+                &= \psi_1(c_1, \bm{B})\beta(c_1, 1) + \psi_1(c_2, \bm{B}) \beta(c_2, 1) = 0.036 + 0.048 = 0.084 \end{align*}$$
+            </p>
+            <p>したがって，$Z_{\bm{x}, \bm{w}} = \alpha(\bm{E}, T + 1) = 0.084$である。</p>
+            <p>$$P(y_3, y_2| \bm{x}) = \frac{1}{0.084} \psi_3(y_3, y_2)\alpha(y_2, 2)\beta(y_3, 3)$$
+                であるから，
+                $$P(c_1, c_1|\bm{x}) = \frac{1}{0.084} \psi_3(c_1, c_1)\alpha(c_1, 2)\beta(c_1, 3) = \frac{0.2 \times 0.5 \times 0.5}{0.084} = 0.595$$
+                $$P(c_1, c_2|\bm{x}) = \frac{1}{0.084} \psi_3(c_1, c_2)\alpha(c_2, 2)\beta(c_1, 3) = \frac{0.2 \times 0.2 \times 0.5}{0.084} = 0.239$$
+                $$P(c_2, c_1|\bm{x}) = \frac{1}{0.084} \psi_3(c_2, c_1)\alpha(c_1, 2)\beta(c_2, 3) = \frac{0.1 \times 0.5 \times 0.2}{0.084} = 0.119$$
+                $$P(c_2, c_2|\bm{x}) = \frac{1}{0.084} \psi_3(c_2, c_2)\alpha(c_2, 2)\beta(c_2, 3) = \frac{0.1 \times 0.2 \times 0.2}{0.084} = 0.048$$
+                となる。
+            </p>
         </div>
 
 
